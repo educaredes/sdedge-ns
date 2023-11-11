@@ -240,6 +240,8 @@ Acceda a la opción de menú _K8s Repos_, haga clic sobre el botón
 
 ![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
 
+Figura 4. Configuración del repositorio de helm charts
+
 En la carpeta compartida `$HOME/shared/sdw-lab/helm` puede encontrar la
 definición de los _helm charts_ que se usarán en esta práctica.
 
@@ -294,7 +296,7 @@ Finalmente, compruebe que desde s1 tiene
 ## 4. Servicio de red *corpcpe*
 
 Comenzaremos a continuación analizando el servicio de acceso a Internet
-corporativo *corpcpe*. La Figura  muestra los detalles de ese servicio. En trazo
+corporativo *corpcpe*. La Figura muestra los detalles de ese servicio. En trazo
 punteado se han señalado algunos componentes que se encuentras configurados,
 pero que no forman parte de este servicio, sino del servicio _sdedge_ que se
 verá más adelante, y que será el que incluya el acceso a la red MPLS para la
@@ -302,7 +304,7 @@ comunicación entre sedes de la red corporativa.
 
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
 
-Figura . Servicio de red corpcpe
+Figura 5. Servicio de red corpcpe
 
 Este servicio establecerá una _SFC_ (_service function chain_ o "cadena de
 funciones del servicio") para enviar el tráfico que proviene del router
@@ -334,7 +336,7 @@ familiarizarse con el servicio.
 ### 4.3 (P) Imágenes vnf-access y vnf-cpe
 Las imágenes Docker que se usan por cada una de las KNFs ya se encuentran en
 Docker Hub, en concreto en el repositorio
-https://hub.docker.com/search?q=educaredes. Se va a analizar los ficheros
+https://hub.docker.com/search?q=educaredes. Se van a analizar los ficheros
 utilizados para la creación de esas imágenes: 
 
 Desde el navegador de archivos en _~/shared/sdedge-ns_, acceda a las carpetas
@@ -462,7 +464,7 @@ adicionales del servicio.
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
 
-Figura . Servicio de red sdedge
+Figura 6. Servicio de red sdedge
 
 ### 5.1 Onboarding de KNFs
 
@@ -669,6 +671,8 @@ La figura muestra resaltados los componentes configurados para el servicio
 SD-WAN.
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
+
+Figura 7. Servicio de red sdedge configurado para SD-WAN
 
 Para realizar las configuraciones de SD-WAN sobre el servicio de red _sdedge_ se
 utilizan los scripts _sdwan1,sh_ junto a los scripts *osm_sdwan_start.sh* y
