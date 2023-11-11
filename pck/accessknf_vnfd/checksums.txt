@@ -1,1 +1,1 @@
-6948a862e0998d2437788c5f1ecba1c6	accessknf_vnfd/accessknf_vnfd.yaml
+bcefd75e3bd448dfb321094a4b29bd23	accessknf_vnfd/accessknf_vnfd.yaml

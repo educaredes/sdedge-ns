@@ -585,9 +585,9 @@
   585  osm vnfd-delete  404b030a-01e5-4fde-bd22-3e2e01fa7a8a
   586  history | grep "osm" 
   587  cd pck
-  588  osm package-build --skip-charm-build accessknf_vnfd
-  589  osm package-build --skip-charm-build cpeknf_vnfd
-  590  osm package-build --skip-charm-build wanknf_vnfd
+  osm package-build --skip-charm-build accessknf_vnfd
+  osm package-build --skip-charm-build cpeknf_vnfd
+  osm package-build --skip-charm-build wanknf_vnfd
   591  osm package-build --skip-charm-build corpcpe_nsd
   592  osm package-build --skip-charm-build sdedge_nsd
   593  exit
