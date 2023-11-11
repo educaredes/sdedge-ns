@@ -675,7 +675,7 @@ SD-WAN.
 Figura 7. Servicio de red sdedge configurado para SD-WAN
 
 Para realizar las configuraciones de SD-WAN sobre el servicio de red _sdedge_ se
-utilizan los scripts _sdwan1,sh_ junto a los scripts *osm_sdwan_start.sh* y
+utiliza el script _sdwan1,sh_ junto a los scripts *osm_sdwan_start.sh* y
 *sdwan_start.sh*. Acceda al contenido de esos ficheros, así como al contenido de
 la carpeta _json_.
 
