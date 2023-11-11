@@ -3,11 +3,13 @@
 # Requires the following variables
 # OSMNS: OSM namespace in the cluster vim
 # SIID: id of the service instance
+# NETNUM: used to select external networks
 # REMOTESITE: the public IP of the remote site vCPE
 
 set -u # to verify variables are defined
 : $OSMNS
 : $SIID
+: $NETNUM
 : $REMOTESITE
 
 export KUBECTL="microk8s kubectl"
@@ -28,6 +30,3 @@ export VWAN="deploy/$OSMWAN"
 
 ./start_sdwan.sh
 
-echo $VACC
-echo $VCPE
-echo $VWAN
