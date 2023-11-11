@@ -25,19 +25,19 @@ set -u # to verify variables are defined
 : $VCPEPUBIP
 : $VCPEGW
 
-if [[ ! $VACC =~ "helmchartrepo-accesschart"  ]]; then
+if [[ ! $VACC =~ "sdedge-ns-repo-accesschart"  ]]; then
     echo ""       
     echo "ERROR: incorrect <access_deployment_id>: $VACC"
     exit 1
 fi
 
-if [[ ! $VCPE =~ "helmchartrepo-cpechart"  ]]; then
+if [[ ! $VCPE =~ "sdedge-ns-repo-cpechart"  ]]; then
     echo ""       
     echo "ERROR: incorrect <cpe_deployment_id>: $VCPE"
     exit 1
 fi
 
-if [[ ! $VWAN =~ "helmchartrepo-wanchart"  ]]; then
+if [[ ! $VWAN =~ "sdedge-ns-repo-wanchart"  ]]; then
     echo ""       
     echo "ERROR: incorrect <wan_deployment_id>: $VWAN"
     exit 1
