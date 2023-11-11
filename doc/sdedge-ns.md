@@ -238,7 +238,7 @@ Acceda a la opción de menú _K8s Repos_, haga clic sobre el botón
 - URL: `https://educaredes.github.io/sdedge-ns` (NO DEBE TERMINAR EN "/")
 - Description: _una descripción textual del repositorio_
 
-![sdw-lab-repository-details](img/sdw-lab-k8s-repository.png)
+![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
 
 En la carpeta compartida `$HOME/shared/sdw-lab/helm` puede encontrar la
 definición de los _helm charts_ que se usarán en esta práctica.
