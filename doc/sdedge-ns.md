@@ -233,7 +233,7 @@ charts_ que utilizaremos en la práctica, alojado en Github Pages.
 
 Acceda a la opción de menú _K8s Repos_, haga clic sobre el botón
  _Add K8s Repository_ y rellene los campos con los valores:
-- Name: `helmchartrepo`
+- Name: `sdedge-ns-repo`
 - Type: "Helm Chart" 
 - URL: `https://educaredes.github.io/sdedge-ns` (NO DEBE TERMINAR EN "/")
 - Description: _una descripción textual del repositorio_
