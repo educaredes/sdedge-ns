@@ -290,14 +290,13 @@ vnx -f sdedge_nfv.xml -t
 
 Por último, compruebe que hay conectividad en la sede remota 1, haciendo pruebas
 en su LAN local 10.20.1.0/24 entre h1, t1 y r1. Compruebe también que hay
-conectividad entre isp1, isp2 y s1 a través del segmento Internet 10.100.3.0/24.
-Finalmente, compruebe que desde s1 tiene
+conectividad entre isp1, isp2 y s1 a través del segmento Internet 10.100.3.0/24. También puede comprobar desde s1 el acceso a 8.8.8.8.
 
 ## 4. Servicio de red *corpcpe*
 
 Comenzaremos a continuación analizando el servicio de acceso a Internet
 corporativo *corpcpe*. La Figura muestra los detalles de ese servicio. En trazo
-punteado se han señalado algunos componentes que se encuentras configurados,
+punteado se han señalado algunos componentes que se encuentra configurados,
 pero que no forman parte de este servicio, sino del servicio _sdedge_ que se
 verá más adelante, y que será el que incluya el acceso a la red MPLS para la
 comunicación entre sedes de la red corporativa. 
