@@ -8,7 +8,7 @@ Servicios SD-WAN en centrales de proximidad
 - [Desarrollo de la práctica](#desarrollo-de-la-práctica)
   - [1. Configuración del entorno](#1-configuración-del-entorno)
     - [1.1 Configuración de la máquina virtual](#11-configuración-de-la-máquina-virtual)
-    - [1.2 Configuración de la máquina virtual](#12-configuración-de-la-máquina-virtual)
+    - [1.2 Descarga del repositorio de la práctica](#12-descarga-del-repositorio-de-la-práctica)
     - [1.3 Definición OSM del clúster k8s y configuración de red](#13-definición-osm-del-clúster-k8s-y-configuración-de-red)
     - [1.4 Registro del repositorio de helm charts](#14-registro-del-repositorio-de-helm-charts)
   - [2. Instalación de descriptores en OSM](#2-instalación-de-descriptores-en-osm)
@@ -170,7 +170,7 @@ _Carpetas Compartidas_ que comparte una carpeta de su equipo con la máquina
 virtual permanentemente, con punto de montaje `/home/upm/shared`. Asegúrese
 además de haber configurado 4096 MB de memoria y 2 CPUs. 
 
-### 1.2 Configuración de la máquina virtual
+### 1.2 Descarga del repositorio de la práctica
 A continuación, arranque la máquina,  abra un terminal y descargue en el
 directorio compartido el repositorio de la práctica: 
 
