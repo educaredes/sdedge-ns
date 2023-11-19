@@ -347,7 +347,7 @@ _img/vnf-access_ y _vnf-cpe_. Observe que cada una de ellas contiene:
   de la configuración del _Dockerfile_ y que serán  utilizados en la
   inicialización del contenedor.
 
-(@) Identifique el nombre de la imagen estándar de partida para la creación de
+:point_right: Identifique el nombre de la imagen estándar de partida para la creación de
 vnf-access y de vnf-cpe (líneas FROM), y qué paquetes adicionales se están
 instalando en cada caso. 
 
@@ -395,20 +395,20 @@ A continuación se van a realizar una serie de configuraciones iniciales del
 servicio instanciado. Aunque está previsto que este tipo de configuraciones se
 realicen directamente a través de la plataforma de orquestación, en este caso,
 por limitaciones del escenario de la práctica, se van a realizar accediendo a
-los contenedores mediante _kubectl_. El fichero _cpe1_, junto con los ficheros
-*osm_corpcpe_start.sh* y *corpcpe_start.sh*, contienen los comandos necesarios
+los contenedores mediante _kubectl_. El fichero _cpe1.sh_, junto con los ficheros
+*osm_corpcpe_start.sh* y *start_corpcpe.sh*, contienen los comandos necesarios
 para realizar las configuraciones necesarias del servicio. 
 
 Acceda al contenido del fichero:
 
 ```shell
-cat corpcpe1
+cat cpe1.sh
 ```
 
 Acceda también al contenido de los ficheros *osm_corpcpe_start.sh* y
-*corpcpe_start.sh* que se invocan desde _corpcpe1_.
+*start_corpcep.sh* que se invocan desde _cpe1.sh_.
 
-(@) A partir del contenido del script _corpcpe1_ y los demás scripts que se
+:point_right: A partir del contenido del script _cpe1.sh_ y los demás scripts que se
 llaman desde este, analice y describa resumidamente los pasos que se están
 siguiendo para realizar la conexión a las redes externas y la configuración del
 servicio.
@@ -416,7 +416,7 @@ servicio.
 A continuación aplique la configuración:
 
 ```shell
-./corpcpe1
+./cpe1.sh
 ```
 
 Y compruebe el funcionamiento del servicio, siguiendo los siguientes pasos para
@@ -430,10 +430,10 @@ wireshark -ki s1-e1
  
 * Desde h1, pruebe la conectividad con s1 mediante ping 10.100.3.3. 
 
-(@) Guarde la captura con nombre _captura-h1s1_, para analizarla y adjuntarla
+:point_right: Guarde la captura con nombre _captura-h1s1_, para analizarla y adjuntarla
 como resultado de la práctica.
 
-(@) Analice el tráfico capturado y explique las direcciones MAC e IP que se ven
+:point_right: Analice el tráfico capturado y explique las direcciones MAC e IP que se ven
 en los distintos niveles del tráfico, teniendo en cuenta que el servicio
 ofrecido utiliza NAT.
 
@@ -448,7 +448,7 @@ traceroute -In 10.100.3.3
 traceroute -In 8.8.8.8
 ```
 
-(@) Explique los resultados de los distintos traceroute, indicando si se
+:point_right: Explique los resultados de los distintos traceroute, indicando si se
 corresponden con lo esperado.
 
 ```shell
@@ -509,14 +509,14 @@ espacios únicamente).
 Puede utilizar los botones de "Show Graph" para visualizar el resultado. Deberá
 mostrar las tres VNFs interconectadas entre sí.
 
-(@) Haga una foto o una captura de pantalla de la visualización gráfica del
+:point_right: Haga una foto o una captura de pantalla de la visualización gráfica del
 servicio de red e inclúyala en la memoria de resultados de la práctica.
 
 ### 5.3 Imagen vnf-wan
-Desde el navegador de archivos en _/home/upm/Desktop/sdw-cfi_, acceda a la
-carpeta _img/vnf-wan_ y analice su contenido.
+Desde el navegador de archivos, acceda a la
+carpeta `/home/upm/shared/sdedge-ns/img/vnf-wan` y analice su contenido.
 
-(@) Identifique el nombre de la imagen estándar de partida para la creación de
+:point_right: Identifique el nombre de la imagen estándar de partida para la creación de
 la imagen vnf-wan (línea FROM), y qué paquetes adicionales se están instalando. 
 
 ### 5.4 Instanciación de sdedge1
@@ -558,7 +558,7 @@ anteriormente. El fichero _sdedge1_, junto con los ficheros
 *osm_sdedge_start.sh* y *sdedge_start.sh*, contienen los comandos necesarios
 para realizar las configuraciones necesarias del servicio. 
 
-(@) Acceda al contenido de esos tres ficheros. Compare *osm_sdedge_start.sh* con
+:point_right: Acceda al contenido de esos tres ficheros. Compare *osm_sdedge_start.sh* con
 *osm_sdedge_start.sh*:
 
 ```shell
@@ -568,7 +568,7 @@ diff osm_corpcpe_start.sh osm_sdedge_start.sh
 Y explique las diferencias observadas. Acceda también al contenido del fichero
 *start_sdedge.sh* que se invoca desde *osm_sdedge_start.sh*.
 
-(@) A partir del contenido de los distintos scripts, analice y describa
+:point_right: A partir del contenido de los distintos scripts, analice y describa
 resumidamente los pasos que se están siguiendo para realizar la conexión a las
 redes externas y la configuración del servicio, comparándolo con el servicio
 _corpcpe_.
@@ -623,7 +623,7 @@ A partir de la información de las direcciones IP para la Sede remota 2 (vea
 Anexos), realice los cambios necesarios en el script _sdedge2_ para conectar a
 las redes externas y configurar las KNFs del servicio _sdedge2_. 
  
-(@) Deberá entregar el script _sdedge2_ como parte del resultado de la práctica.
+:point_right: Deberá entregar el script _sdedge2_ como parte del resultado de la práctica.
 
 A continuación aplique la configuración:
 
@@ -651,7 +651,7 @@ ping -c 3 10.20.2.2
 El tráfico del ping deberá verse en la captura, ya que inicialmente la KNF:wan
 se configura para conmutar el tráfico entre KNF:access y dicha red. 
 
-(@) Como resultado de este apartado, incluya el texto resultado de la captura.
+:point_right: Como resultado de este apartado, incluya el texto resultado de la captura.
 
 Puede dejar corriendo la captura, le servirá para comprobar qué tráfico se
 conmuta a través de MplsWan en el siguiente apartado.
@@ -678,7 +678,7 @@ utiliza el script _sdwan1,sh_ junto a los scripts *osm_sdwan_start.sh* y
 *sdwan_start.sh*. Acceda al contenido de esos ficheros, así como al contenido de
 la carpeta _json_.
 
-(@) A partir de la figura, del contenido de los scripts y de los ficheros json,
+:point_right: A partir de la figura, del contenido de los scripts y de los ficheros json,
 analice y describa resumidamente los pasos que se están siguiendo para realizar
 la configuración del servicio y la aplicación de políticas. 
 
@@ -711,10 +711,10 @@ wireshark -ki isp1-e2
 * Desde h1 lance un ping a h2 (dir. IP 10.20.2.2). El tráfico atraviesa isp1 e
   isp2, tal y como puede comprobar en la captura de tráfico. 
 
-(@) Guarde la captura con nombre _captura-h1h2_, para analizarla y adjuntarla
+:point_right: Guarde la captura con nombre _captura-h1h2_, para analizarla y adjuntarla
 como resultado de la práctica.
 
-(@) Analice el tráfico capturado y explique las direcciones MAC e IP que se ven
+:point_right: Analice el tráfico capturado y explique las direcciones MAC e IP que se ven
 en los distintos niveles del tráfico, teniendo en cuenta que se ha encapsulado
 por un túnel VXLAN.
 
@@ -725,7 +725,7 @@ A continuación, desde h1 y desde t1 compruebe el camino seguido por el tráfico
 otros sistemas del escenario y a Internet utilizando traceroute.
 
 ## 6. Conclusiones
-(@) Incluya en la entrega un apartado de conclusiones con su valoración de la
+:point_right: Incluya en la entrega un apartado de conclusiones con su valoración de la
 práctica, incluyendo los posibles problemas que haya encontrado y sus
 sugerencias. 
 
