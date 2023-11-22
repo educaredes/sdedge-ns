@@ -217,7 +217,7 @@ virtual con el servidor OSM mediante:
 
 ```
 cd ~/shared/sdedge-ns/bin
-./start-rdsv-tun <letra>
+./rdsv-start-tun <letra>
 ```
 
 Compruebe que se ha establecido el túnel haciendo ping al servidor OSM:
