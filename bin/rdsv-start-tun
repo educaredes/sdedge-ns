@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEF_TUNSERVER_NAME="labtun5.dit.upm.es"  # Tunnel server to connect to
+DEF_TUNSERVER_NAME="labserver06.lab.dit.upm.es"  # Tunnel server to connect to
 DEF_REPSERVER_NAME="idefix.dit.upm.es"    # Server to retrieve the tunnel config from
 USAGE="
 Usage: 
