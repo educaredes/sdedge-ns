@@ -207,7 +207,7 @@ repositorio de la práctica:
 ```
 cd ~/shared
 git clone https://github.com/educaredes/sdedge-ns.git
-cd nfv-lab
+cd sdedge-ns
 ```
 
 ### 1.2 Instalación de la red privada virtual
