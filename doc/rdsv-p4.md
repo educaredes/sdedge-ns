@@ -210,14 +210,15 @@ git clone https://github.com/educaredes/sdedge-ns.git
 cd nfv-lab
 ```
 
-### 1.2 Descarga del repositorio de la práctica
+### 1.2 Instalación de la red privada virtual
 
 Utilizando la \<letra\> asignada por los profesores, instale la red privada
 virtual con el servidor OSM mediante:
 
 ```
 cd ~/shared/sdedge-ns/bin
-./rdsv-start-tun <letra>
+./rdsv-start-tun <letra>                     # Si realiza la práctica desde el laboratorio
+./rdsv-start-tun <letra> labtun5.dit.upm.es  # Si realiza la práctica desde equipo propio
 ```
 
 Compruebe que se ha establecido el túnel haciendo ping al servidor OSM:
