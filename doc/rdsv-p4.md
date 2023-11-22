@@ -7,7 +7,8 @@ Servicios SD-WAN en centrales de proximidad
 - [Referencias](#referencias)
 - [Desarrollo de la práctica](#desarrollo-de-la-práctica)
   - [1. Configuración del entorno](#1-configuración-del-entorno)
-    - [1.1 Configuración de la máquina virtual](#11-configuración-de-la-máquina-virtual)
+    - [1.1 Instalación y arranque de la máquina virtual en el laboratorio](#11-instalación-y-arranque-de-la-máquina-virtual-en-el-laboratorio)
+    - [1.1.alt Instalación y arranque de la máquina virtual en equipo propio](#11alt-instalación-y-arranque-de-la-máquina-virtual-en-equipo-propio)
     - [1.2 Descarga del repositorio de la práctica](#12-descarga-del-repositorio-de-la-práctica)
     - [1.3 Definición OSM del clúster k8s y configuración de red](#13-definición-osm-del-clúster-k8s-y-configuración-de-red)
     - [1.4 Registro del repositorio de helm charts](#14-registro-del-repositorio-de-helm-charts)
@@ -160,46 +161,69 @@ permite realizar pruebas de conectividad con servidores bien conocidos como el
 # Desarrollo de la práctica
 
 ## 1. Configuración del entorno
-Para realizar la práctica debe utilizar la misma máquina virtual de las
-prácticas anteriores, y seguir los pasos siguientes de configuración, similares 
-a los pasos iniciales de la práctica 2. 
+Para realizar la práctica debe utilizar una máquina virtual distinta a la de las
+prácticas anteriores, y seguir una serie de pasos  de configuración, que se
+detallan a continuación. 
 
-### 1.1 Configuración de la máquina virtual
-Antes de arrancar la máquina, compruebe en la opción de configuración de
-_Carpetas Compartidas_ que comparte una carpeta de su equipo con la máquina
-virtual permanentemente, con punto de montaje `/home/upm/shared`. Asegúrese
-además de haber configurado 4096 MB de memoria y 2 CPUs. 
+### 1.1 Instalación y arranque de la máquina virtual en el laboratorio
+Si utiliza un PC personal propio, acceda al apartado
+[1.1.alt](#11alt-instalación-y-arranque-de-la-máquina-virtual-en-equipo-propio).
 
-### 1.2 Descarga del repositorio de la práctica
-A continuación, arranque la máquina,  abra un terminal y descargue en el
-directorio compartido el repositorio de la práctica: 
+Si utiliza un PC del laboratorio, siga los siguientes pasos. 
+
+Abra un terminal, cree un directorio `shared` y descargue allí el
+repositorio de la práctica: 
+
+```
+mkdir -p ~/shared
+cd ~/shared
+git clone https://github.com/educaredes/sdedge-ns.git
+cd nfv-lab
+```
+
+A continuación, ejecute:
+
+```
+chmod +x bin/get-osmlab-k8s
+bin/get-osmlab-k8s
+```
+
+El comando `bin/get-osmlab-k8s`:
+- instala la ova que contiene la máquina virtual,
+- añade el directorio compartido en la máquina virtual, en `/home/upm/shared`.
+El objetivo es que esa carpeta compartida sea accesible tanto en el PC anfitrión
+como en la máquina virtual _RDSV-K8S_. 
+
+### 1.1.alt Instalación y arranque de la máquina virtual en equipo propio
+
+Si utiliza su propio PC personal, tras descargar e importar la ova, utilice la
+opción de configuración de _Carpetas Compartidas_ para compartir una carpeta de
+su equipo con la máquina virtual permanentemente, con punto de montaje
+`/home/upm/shared`. Asegúrese además de configurar 4096 MB de memoria y 2 CPUs.
+
+Arranque la máquina virtual, abra un terminal, y descargue en `~/shared` el
+repositorio de la práctica: 
 
 ```
 cd ~/shared
 git clone https://github.com/educaredes/sdedge-ns.git
-cd sdedge-ns
+cd nfv-lab
 ```
 
->**Nota:**
->Si ya lo ha descargado antes puede actualizarlo con:
->
->```
->cd ~/shared/sdedge-ns
->git pull
->```
+### 1.2 Descarga del repositorio de la práctica
 
 Utilizando la \<letra\> asignada por los profesores, instale la red privada
 virtual con el servidor OSM mediante:
 
 ```
 cd ~/shared/sdedge-ns/bin
-./install-tun <letra>
+./start-rdsv-tun <letra>
 ```
 
 Compruebe que se ha establecido el túnel haciendo ping al servidor OSM:
 
 ```
-ping 10.11.12.1
+ping 10.11.13.1
 ```
 
 ### 1.3 Definición OSM del clúster k8s y configuración de red 
@@ -209,7 +233,7 @@ registrar su cluster k8s mediante:
 
 ```
 cd ~/shared/sdedge-ns/bin
-./prepare-osmlab <letter> 
+./rdsv-config-osmlab <letter> 
 ```
 
 A continuación, **cierre el terminal** y abra uno nuevo.
