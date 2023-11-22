@@ -9,7 +9,7 @@ Servicios SD-WAN en centrales de proximidad
   - [1. Configuración del entorno](#1-configuración-del-entorno)
     - [1.1 Instalación y arranque de la máquina virtual en el laboratorio](#11-instalación-y-arranque-de-la-máquina-virtual-en-el-laboratorio)
     - [1.1.alt Instalación y arranque de la máquina virtual en equipo propio](#11alt-instalación-y-arranque-de-la-máquina-virtual-en-equipo-propio)
-    - [1.2 Descarga del repositorio de la práctica](#12-descarga-del-repositorio-de-la-práctica)
+    - [1.2 Instalación de la red privada virtual](#12-instalación-de-la-red-privada-virtual)
     - [1.3 Definición OSM del clúster k8s y configuración de red](#13-definición-osm-del-clúster-k8s-y-configuración-de-red)
     - [1.4 Registro del repositorio de helm charts](#14-registro-del-repositorio-de-helm-charts)
   - [2. Instalación de descriptores en OSM](#2-instalación-de-descriptores-en-osm)
@@ -217,7 +217,11 @@ virtual con el servidor OSM mediante:
 
 ```
 cd ~/shared/sdedge-ns/bin
-./rdsv-start-tun <letra>                     # Si realiza la práctica desde el laboratorio
+./rdsv-start-tun <letra>  # Si realiza la práctica desde el laboratorio
+```
+
+```
+cd ~/shared/sdedge-ns/bin
 ./rdsv-start-tun <letra> labtun5.dit.upm.es  # Si realiza la práctica desde equipo propio
 ```
 
@@ -432,7 +436,7 @@ cat cpe1.sh
 ```
 
 Acceda también al contenido de los ficheros *osm_corpcpe_start.sh* y
-*start_corpcep.sh* que se invocan desde _cpe1.sh_.
+*start_corpcpe.sh* que se invocan desde _cpe1.sh_.
 
 :point_right: A partir del contenido del script _cpe1.sh_ y los demás scripts
 que se llaman desde este, analice y describa resumidamente los pasos que se

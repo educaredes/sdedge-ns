@@ -26,6 +26,7 @@
         "corpcpe",
         "extnet",
         "labserver",
+        "labtun",
         "Mpls",
         "mplswan",
         "pingchart",
