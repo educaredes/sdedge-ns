@@ -9,7 +9,7 @@ IMPORTOPTS="--vsys 0 --memory 4096 --cpus 2"
 START_TIME=$SECONDS
 
 check_in_vbox() {
-    if vboxmanage list vms | grep $1; then
+    if vboxmanage list vms | grep "\"$1\""; then
         echo "--"
         echo "-- ERROR: $VMNAME virtual machine already exists in VirtualBox."
         echo "--        Delete or rename it manually and execute this script again."
@@ -19,7 +19,7 @@ check_in_vbox() {
 }
 
 validate_vm() {
-    check_in_vbox $VMNAME
+    check_in_vbox "$VMNAME"
 }
 
 if [ "$#" -ne 0 ]; then
