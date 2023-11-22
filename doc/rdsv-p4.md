@@ -75,20 +75,20 @@ las funciones de acceso a la red MPLS, router de acceso a Internet, y funciones
 específicas de SD-WAN Edge que permitan aplicar las políticas de reenvío del
 tráfico corporativo bien por MPLS, bien por un túnel sobre el acceso a Internet. 
 
-La plataforma de gestión y orquestación del servicio será nuevamente la
-plataforma de código abierto _Open Source Mano (OSM)_, ya vista en el caso
-práctico de plataformas NFV.
+La plataforma de gestión y orquestación del servicio será la
+plataforma de código abierto [Open Source MANO (OSM)](https://osm.etsi.org). 
 
 
 # Entorno
 
-El entorno es el mismo que se ha utilizado para el caso práctico 2, usando OSM y
-K8s como se muestra en la Figura 2.
+La Figura 2 representa el entorno en el que se va a desarrollar la práctica, mostrando su relación con la arquitectura NFV definida por ETSI. Como plataforma de gestión de VNFs se utilizará la plataforma de referencia de ETSI, Open Source Mano (OSM), que, como se ha visto en la teoría, comprende los dos niveles superiores del MANO: el NFVO para gestionar el ciclo de vida de los servicios de red (NS); y el VNFM para gestionar el ciclo de vida de las funciones de red (VNF). Como Virtualized Infrastructure Manager (VIM) se va a utilizar un clúster de Kubernetes, que permite el despliegue de VNFs como contenedores, habitualmente denominados KNFs.
 
 ![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
 
 Figura 2. Arquitectura del entorno
+
+Kubernetes es una plataforma de código libre diseñada para el despliegue de aplicaciones basadas en contenedores. Proporciona múltiples funciones de escalabilidad, resistencia a fallos, actualizaciones y regresiones progresivas, etc. que la hacen muy adecuada para el despliegue de VNFs. Kubernetes incluye su propio gestor de paquetes, denominado Helm, que define la forma de crear y operar repositorios en los que se almacenan los denominados Charts (paquetes en terminología Helm). Básicamente, un Chart define un conjunto de recursos de Kubernetes (contenedores, balanceadores, etc.) que se pueden posteriormente desplegar sobre un clúster de Kubernetes. Adicionalmente, las imágenes de los contenedores usados por Kubernetes suelen almacenarse en repositorios privados o, más comúnmente, en el repositorio oficial de Docker denominado DockerHub.  
 
 En la Figura 3 se aprecia con más detalle la relación entre las distintas
 plataformas y repositorios involucrados en la práctica, que consistirá en el
