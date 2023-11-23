@@ -318,7 +318,7 @@ osm nsd-create $HOME/shared/sdedge-ns/pck/corpcpe_nsd.tar.gz
 
 A continuación se va a arrancar el escenario de red que comprende las sedes
 remotas, los routers _isp1_ e _isp2_ y los servidores _s1_ y voip-gw_. Primero
-deberá comprobar que se han creado los witches `AccessNet1`, `AccessNet2`,
+deberá comprobar que se han creado los switches `AccessNet1`, `AccessNet2`,
 `ExtNet1`, `ExtNet2` y `MplsWan` tecleando en un terminal:
 
 ```shell
@@ -337,8 +337,8 @@ kubectl get -n $OSMNS network-attachment-definitions
 A continuación arranque el escenario con:
 
 ```shell
-~/shared/sdedge-ns/vnx
-vnx -f sdedge_nfv.xml -t
+cd ~/shared/sdedge-ns/vnx
+sudo vnx -f sdedge_nfv.xml -t
 ```
 
 Por último, compruebe que hay conectividad en la sede remota 1, haciendo pruebas
@@ -436,6 +436,7 @@ Una vez arrancada la instancia del servicio puede acceder a los terminales de
 las KNFs usando el comando:
 
 ```shell
+cd ~/shared/sdedge-ns
 bin/sdw-knf-consoles open $NSID1
 ```
 
