@@ -853,32 +853,48 @@ bin/sdw-knf-consoles open <ns_id>
 
 *Figura 1. Visión del servicio SD-WAN*
 
+---
+
 ![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
 
 *Figura 2. Arquitectura del entorno*
+
+---
 
 ![Relaciones del entorno](img/osm-helm-docker.drawio.png "Relación entre
 plataformas y repositorios")
 
 *Figura 3. Relación entre plataformas y repositorios*
 
+---
+
 ![Arquitectura general](img/global-arch-tun.png "arquitectura general")
 *Figura 4. Arquitectura general*
+
+---
 
 ![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
 
 *Figura 5. Configuración del repositorio de helm charts*
 
+---
+
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
 
 *Figura 6. Servicio de red corpcpe*
+
+---
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
 
 *Figura 7. Servicio de red sdedge*
 
+---
+
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
 
 *Figura 8. Servicio de red sdedge configurado para SD-WAN*
+
+---
 
