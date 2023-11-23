@@ -59,7 +59,7 @@ llevar las funciones de un equipo SD-WAN Edge a la central de proximidad.
 
 ![Visión del servicio SD-WAN](img/summary.png "summary")
 
-Figura 1. Visión del servicio SD-WAN
+*Figura 1. Visión del servicio SD-WAN*
 
 En concreto, partimos de un entorno SD-WAN (Figura  1.a), en el que se dispone
 de equipos SD-WAN Edge sencillos "intercalados" entre el router de la LAN de una
@@ -99,7 +99,7 @@ habitualmente denominados KNFs.
 ![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
 
-Figura 2. Arquitectura del entorno
+*Figura 2. Arquitectura del entorno*
 
 Kubernetes es una plataforma de código libre diseñada para el despliegue de
 aplicaciones basadas en contenedores. Proporciona múltiples funciones de
@@ -123,15 +123,18 @@ escritos en YAML de acuerdo a las especificaciones de OSM.
 ![Relaciones del entorno](img/osm-helm-docker.drawio.png "Relación entre
 plataformas y repositorios")
 
-Figura 3. Relación entre plataformas y repositorios
+*Figura 3. Relación entre plataformas y repositorios*
 
 # Escenario de la práctica
 
-La Figura del Anexo II muestra el escenario de red que se va a desplegar en la
+La Figura 4 muestra el escenario de red que se va a desplegar en la
 práctica. Está formado por dos sedes remotas, y dos centrales de proximidad,
 gestionadas desde la misma plataforma OSM. Cada central de proximidad
 proporciona acceso a Internet y al servicio MetroEthernet ofrecido sobre una red
 MPLS. 
+
+![Arquitectura general](img/global-arch-tun.png "arquitectura general")
+*Figura 4. Arquitectura general*
 
 Cada sede remota X (con X = 1 ó 2) está compuesta por:
   - una red de área local con dos sistemas finales simulando un PC (hX) y un
@@ -312,7 +315,7 @@ Acceda a la opción de menú _K8s Repos_, haga clic sobre el botón
 
 ![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
 
-Figura 4. Configuración del repositorio de helm charts
+*Figura 5. Configuración del repositorio de helm charts*
 
 En la carpeta compartida `$HOME/shared/sdw-lab/helm` puede encontrar la
 definición de los _helm charts_ que se usarán en esta práctica.
@@ -371,7 +374,7 @@ También puede comprobar desde s1 el acceso a 8.8.8.8.
 ## 4. Servicio de red *corpcpe*
 
 Comenzaremos a continuación analizando el servicio de acceso a Internet
-corporativo *corpcpe*. La Figura 5 muestra los detalles de ese servicio. En trazo
+corporativo *corpcpe*. La Figura 6 muestra los detalles de ese servicio. En trazo
 punteado se han señalado algunos componentes que se encuentra configurados,
 pero que no forman parte de este servicio, sino del servicio _sdedge_ que se
 verá más adelante, y que será el que incluya el acceso a la red MPLS para la
@@ -379,7 +382,7 @@ comunicación entre sedes de la red corporativa.
 
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
 
-Figura 5. Servicio de red corpcpe
+*Figura 6. Servicio de red corpcpe*
 
 Este servicio establecerá una _SFC_ (_service function chain_ o "cadena de
 funciones del servicio") para enviar el tráfico que proviene del router
@@ -535,12 +538,12 @@ osm ns-delete $NSID1
 ## 5. Servicio de red *sdedge*
 A partir del servicio de red anterior, crearemos una nueva VNF y un nuevo NS
 para ofrecer mediante el entorno OSM el servicio *sdedge*, que está preparado
-para incluir la funcionalidad SD-WAN. La Figura 6 muestra los componentes
+para incluir la funcionalidad SD-WAN. La Figura 7 muestra los componentes
 adicionales del servicio.
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
 
-Figura 6. Servicio de red sdedge
+*Figura 7. Servicio de red sdedge*
 
 ### 5.1 Onboarding de KNFs
 
@@ -742,17 +745,17 @@ conmuta a través de MplsWan en el siguiente apartado.
 A continuación, sobre los servicios de red _sdedge_ desplegados en cada una de
 las sedes, se configurará el servicio SD-WAN y se aplicarán las políticas de red
 correspondientes al servicio. En este caso de estudio, y tomando como referencia
-la Figura del Anexo II, las políticas aplicadas permitirán cursar el tráfico
+la Figura 4, las políticas aplicadas permitirán cursar el tráfico
 entre los hosts h1 y h2 a través del túnel VXLAN inter-sedes sobre Internet,
 mientras que el tráfico entre los "teléfonos IP" t1 y t2 se continuará enviando
 a través de la red MPLS. 
 
-La Figura 7 muestra resaltados los componentes configurados para el servicio
+La Figura 8 muestra resaltados los componentes configurados para el servicio
 SD-WAN.
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
 
-Figura 7. Servicio de red sdedge configurado para SD-WAN
+*Figura 8. Servicio de red sdedge configurado para SD-WAN*
 
 Para realizar las configuraciones de SD-WAN sobre el servicio de red _sdedge_ se
 utiliza el script _sdwan1,sh_ junto a los scripts *osm_sdwan_start.sh* y
@@ -845,6 +848,37 @@ bin/sdw-knf-consoles open <ns_id>
 ```
 
 # Anexo II - Figuras
-![Arquitectura general](img/global-arch-tun.png "arquitectura general")
 
-Fig II.1.  Arquitectura general
+![Visión del servicio SD-WAN](img/summary.png "summary")
+
+*Figura 1. Visión del servicio SD-WAN*
+
+![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
+entorno")
+
+*Figura 2. Arquitectura del entorno*
+
+![Relaciones del entorno](img/osm-helm-docker.drawio.png "Relación entre
+plataformas y repositorios")
+
+*Figura 3. Relación entre plataformas y repositorios*
+
+![Arquitectura general](img/global-arch-tun.png "arquitectura general")
+*Figura 4. Arquitectura general*
+
+![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
+
+*Figura 5. Configuración del repositorio de helm charts*
+
+![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
+
+*Figura 6. Servicio de red corpcpe*
+
+![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
+
+*Figura 7. Servicio de red sdedge*
+
+![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
+
+*Figura 8. Servicio de red sdedge configurado para SD-WAN*
+
