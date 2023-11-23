@@ -633,7 +633,7 @@ el servicio _corpcpe_.
 A continuación aplique la configuración:
 
 ```shell
-./sdedge1 
+./sdedge1.sh 
 ```
 
 Y compruebe el funcionamiento del servicio, verificando que sigue teniendo
@@ -673,7 +673,7 @@ asignadas a las KNFs de _sdedge1_.
 Cree una copia del sdedge1:
 
 ```shell
-cp sdege1 sdedge2
+cp sdege1.sh sdedge2.sh
 ```
 
 A partir de la información de las direcciones IP para la Sede remota 2 (vea
@@ -686,7 +686,7 @@ práctica.
 A continuación aplique la configuración:
 
 ```shell
-./sdedge2 
+./sdedge2.sh 
 ```
 
 Para probar el servicio, compruebe que ahora tiene acceso desde h2 y t2 a
