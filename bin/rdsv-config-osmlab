@@ -18,19 +18,19 @@ echo "export OSM_USER=rdsv$SCEN" >> ~/.bashrc
 echo "export OSM_PASSWORD=xxxx$SCEN" >> ~/.bashrc
 echo "export OSM_PROJECT=rpry$SCEN" >> ~/.bashrc
 
-echo "export OSM_HOSTNAME=10.11.12.1" >> ~/.bashrc
+echo "export OSM_HOSTNAME=10.11.13.1" >> ~/.bashrc
 echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
 
 #source ~/.bashrc 
 export OSM_USER=rdsv$SCEN
 export OSM_PASSWORD=xxxx$SCEN
 export OSM_PROJECT=rpry$SCEN
-export OSM_HOSTNAME=10.11.12.1
+export OSM_HOSTNAME=10.11.13.1
 
 echo "-- "
 echo "-- Script for preparing the enviroment for OSM laboratory "
 echo "-- "
-MYIP=$( ifconfig | grep 10.11.12 | awk '{print $2}' )
+MYIP=$( ifconfig | grep 10.11.13 | awk '{print $2}' )
 echo "-- My IP=$MYIP"
 
 # Delete dummy VIM if registered
