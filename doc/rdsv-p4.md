@@ -1,6 +1,10 @@
 <!-- omit from toc -->
-Servicios SD-WAN en centrales de proximidad
-===========================================
+Plataforma de orquestación de servicios basados en NFV
+======================================================
+
+<!-- omit from toc -->
+## Servicios SD-WAN en centrales de proximidad
+
 - [Resumen](#resumen)
 - [Entorno](#entorno)
 - [Escenario de la práctica](#escenario-de-la-práctica)
@@ -31,7 +35,7 @@ Servicios SD-WAN en centrales de proximidad
     - [5.6 Instanciación de sdedge2](#56-instanciación-de-sdedge2)
     - [5.7 (P) Conexión de sdedge2 a las redes externas y configuración](#57-p-conexión-de-sdedge2-a-las-redes-externas-y-configuración)
   - [6. (P) Configuración y aplicación de políticas de la SD-WAN](#6-p-configuración-y-aplicación-de-políticas-de-la-sd-wan)
-  - [6. Conclusiones](#6-conclusiones)
+  - [7. Conclusiones](#7-conclusiones)
 - [Anexo I - Comandos](#anexo-i---comandos)
 - [Anexo II - Figuras](#anexo-ii---figuras)
 
@@ -783,7 +787,7 @@ encapsulado por un túnel VXLAN.
 A continuación, desde h1 y desde t1 compruebe el camino seguido por el tráfico a
 otros sistemas del escenario y a Internet utilizando traceroute.
 
-## 6. Conclusiones
+## 7. Conclusiones
 :point_right: Incluya en la entrega un apartado de conclusiones con su
 valoración de la práctica, incluyendo los posibles problemas que haya encontrado
 y sus sugerencias. 
