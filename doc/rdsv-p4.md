@@ -98,7 +98,6 @@ habitualmente denominados KNFs.
 
 ![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
-
 *Figura 2. Arquitectura del entorno*
 
 Kubernetes es una plataforma de código libre diseñada para el despliegue de
@@ -122,7 +121,6 @@ escritos en YAML de acuerdo a las especificaciones de OSM.
 
 ![Relaciones del entorno](img/osm-helm-docker.drawio.png "Relación entre
 plataformas y repositorios")
-
 *Figura 3. Relación entre plataformas y repositorios*
 
 # Escenario de la práctica
@@ -314,7 +312,6 @@ Acceda a la opción de menú _K8s Repos_, haga clic sobre el botón
 - Description: _una descripción textual del repositorio_
 
 ![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
-
 *Figura 5. Configuración del repositorio de helm charts*
 
 En la carpeta compartida `$HOME/shared/sdw-lab/helm` puede encontrar la
@@ -381,7 +378,6 @@ verá más adelante, y que será el que incluya el acceso a la red MPLS para la
 comunicación entre sedes de la red corporativa. 
 
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
-
 *Figura 6. Servicio de red corpcpe*
 
 Este servicio establecerá una _SFC_ (_service function chain_ o "cadena de
@@ -542,7 +538,6 @@ para incluir la funcionalidad SD-WAN. La Figura 7 muestra los componentes
 adicionales del servicio.
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
-
 *Figura 7. Servicio de red sdedge*
 
 ### 5.1 Onboarding de KNFs
@@ -754,7 +749,6 @@ La Figura 8 muestra resaltados los componentes configurados para el servicio
 SD-WAN.
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
-
 *Figura 8. Servicio de red sdedge configurado para SD-WAN*
 
 Para realizar las configuraciones de SD-WAN sobre el servicio de red _sdedge_ se
@@ -850,35 +844,28 @@ bin/sdw-knf-consoles open <ns_id>
 # Anexo II - Figuras
 
 ![Visión del servicio SD-WAN](img/summary.png "summary")
-
 *Figura 1. Visión del servicio SD-WAN*
 
 ![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
-
 *Figura 2. Arquitectura del entorno*
 
 ![Relaciones del entorno](img/osm-helm-docker.drawio.png "Relación entre
 plataformas y repositorios")
-
 *Figura 3. Relación entre plataformas y repositorios*
 
 ![Arquitectura general](img/global-arch-tun.png "arquitectura general")
 *Figura 4. Arquitectura general*
 
 ![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
-
 *Figura 5. Configuración del repositorio de helm charts*
 
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
-
 *Figura 6. Servicio de red corpcpe*
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
-
 *Figura 7. Servicio de red sdedge*
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
-
 *Figura 8. Servicio de red sdedge configurado para SD-WAN*
 
