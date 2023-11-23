@@ -144,8 +144,8 @@ Cada sede remota X (con X = 1 ó 2) está compuesta por:
 
 El router rX tiene dos interfaces hacia el gateway bcgX, una para el tráfico
 corporativo y otra para el tráfico Internet.  Como es normal, cada interfaz de
-rX está configurada para una subred IP distinta, de forma similar al caso
-práctico SD-WAN.
+rX está configurada para una subred IP distinta, al igual que sucede en el caso
+de disponer de un dispositivo físico SD-Edge instalado en la sede remota. 
 
 La red de acceso a la central de proximidad se simula mediante Open vSwitch en
 modo "standalone", es decir, operando como un conmutador Ethernet clásico, con
