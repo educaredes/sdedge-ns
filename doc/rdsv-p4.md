@@ -11,8 +11,10 @@ Servicios SD-WAN en centrales de proximidad
     - [1.1.alt Instalación y arranque de la máquina virtual en equipo propio](#11alt-instalación-y-arranque-de-la-máquina-virtual-en-equipo-propio)
     - [1.2 Instalación de la red privada virtual](#12-instalación-de-la-red-privada-virtual)
     - [1.3 Definición OSM del clúster k8s y configuración de red](#13-definición-osm-del-clúster-k8s-y-configuración-de-red)
-    - [1.4 Registro del repositorio de helm charts](#14-registro-del-repositorio-de-helm-charts)
-  - [2. Instalación de descriptores en OSM](#2-instalación-de-descriptores-en-osm)
+  - [2. Interfaz gráfica de OSM](#2-interfaz-gráfica-de-osm)
+    - [2.1 Familiarización con la GUI de OSM](#21-familiarización-con-la-gui-de-osm)
+    - [2.2 Registro del repositorio de helm charts](#22-registro-del-repositorio-de-helm-charts)
+  - [2.3 Instalación de descriptores en OSM](#23-instalación-de-descriptores-en-osm)
   - [3. Arranque del escenario de red](#3-arranque-del-escenario-de-red)
   - [4. Servicio de red *corpcpe*](#4-servicio-de-red-corpcpe)
     - [4.1 Análisis de las KNFs](#41-análisis-de-las-knfs)
@@ -255,9 +257,28 @@ echo "-- OSM_HOSTNAME=$OSM_HOSTNAME"
 echo "-- OSMNS=$OSMNS"
 ```
 
-### 1.4 Registro del repositorio de helm charts 
+## 2. Interfaz gráfica de OSM
 
-A través de la GUI registraremos el repositorio de _helm
+### 2.1 Familiarización con la GUI de OSM
+
+Acceda a OSM desde la máquina virtual mediante:
+
+```
+# Acceso a OSM desde la máquina virtual
+firefox 10.11.13.1 &
+```
+
+Familiarícese con las distintas opciones del menú, especialmente:
+- _Packages_: gestión de las plantillas de servicios de red (NS Packages)
+y VNFs (VNF Packages). 
+- _Instances_: gestión de la instancias de los servicios desplegados
+- _K8s_: gestión del registro de clústeres y repositorios k8s
+
+### 2.2 Registro del repositorio de helm charts 
+
+Para implementar las funciones de red virtualizadas se usarán _helm charts_, que
+empaquetan todos los recursos necesarios para el despliegue de una aplicación en
+un clúster de K8S. A través de la GUI registraremos el repositorio de _helm
 charts_ que utilizaremos en la práctica, alojado en Github Pages.
 
 Acceda a la opción de menú _K8s Repos_, haga clic sobre el botón
@@ -274,7 +295,7 @@ Figura 4. Configuración del repositorio de helm charts
 En la carpeta compartida `$HOME/shared/sdw-lab/helm` puede encontrar la
 definición de los _helm charts_ que se usarán en esta práctica.
 
-## 2. Instalación de descriptores en OSM
+## 2.3 Instalación de descriptores en OSM
 
 Desde la maquina virtual, acceda gráficamente al directorio 
 `$HOME/shared/sdedge-ns/pck`. Realice el proceso de instalación de los 
@@ -284,7 +305,8 @@ descriptores de KNFs y del servicio de red (onboarding):
 - Acceda al menu de OSM Packages->NS packages y arrastre el fichero 
 `corpcpe_nsd.tar.gz`.
 
-Alternativamente, puede utilizar la línea de comandos:
+Alternativamente, puede realizar la instalación de descriptores desde la línea 
+de comandos, usando el cliente de osm ya instalado en la máquina virtual:
 
 ```
 osm vnfd-create $HOME/shared/sdedge-ns/pck/accessknf_vnfd.tar.gz
@@ -302,8 +324,10 @@ deberá comprobar que se han creado los witches `AccessNet1`, `AccessNet2`,
 ```shell
 sudo ovs-vsctl show
 ```
-
-Compruebe que están también están creados los correspondientes _Network
+Para conectar las KNFs con los switches, se ha utilizado
+[Multus](https://github.com/k8snetworkplumbingwg/multus-cni), un plugin de tipo
+_container network interface_ (CNI) para Kubernetes. 
+Compruebe que están creados los correspondientes _Network
 Attachment Definitions_ de _Multus_ ejecutando el comando:
 
 ```

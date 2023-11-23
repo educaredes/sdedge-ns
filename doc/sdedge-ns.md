@@ -226,6 +226,7 @@ echo "-- OSM_HOSTNAME=$OSM_HOSTNAME"
 echo "-- OSMNS=$OSMNS"
 ```
 
+
 ### 1.4 Registro del repositorio de helm charts 
 
 A través de la GUI registraremos el repositorio de _helm
@@ -274,7 +275,7 @@ deberá comprobar que se han creado los witches `AccessNet1`, `AccessNet2`,
 sudo ovs-vsctl show
 ```
 
-Compruebe que están también están creados los correspondientes _Network
+Compruebe que también están creados los correspondientes _Network
 Attachment Definitions_ de _Multus_ ejecutando el comando:
 
 ```
