@@ -408,7 +408,7 @@ cat cpe1.sh
 ```
 
 Acceda también al contenido de los ficheros *osm_corpcpe_start.sh* y
-*start_corpcep.sh* que se invocan desde _cpe1.sh_.
+*start_corpcpe.sh* que se invocan desde _cpe1.sh_.
 
 :point_right: A partir del contenido del script _cpe1.sh_ y los demás scripts
 que se llaman desde este, analice y describa resumidamente los pasos que se
