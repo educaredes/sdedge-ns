@@ -3,7 +3,8 @@ Plataforma de orquestación de servicios basados en NFV
 ======================================================
 
 <!-- omit from toc -->
-## Servicios SD-WAN en centrales de proximidad
+Servicios SD-WAN en centrales de proximidad
+-------------------------------------------
 
 - [Resumen](#resumen)
 - [Entorno](#entorno)
@@ -52,20 +53,18 @@ XOS.
 
 Un caso de virtualización de servicio de red para el que ya existen numerosas
 propuestas y soluciones es el del servicio vCPE (_Virtual Customer Premises
-Equipment_) en el contexto del servicio residencial de acceso a Internet, que se
-resume en el Anexo I. En nuestro caso, extenderemos ese servicio vCPE, en el
-contexto del acceso a Internet desde una red corporativa, para llevar las
-funciones del equipo SD-WAN Edge a la central de proximidad.
+Equipment_). En nuestro caso, veremos ese servicio vCPE en el
+contexto del acceso a Internet desde una red corporativa, y lo extenderemos para
+llevar las funciones de un equipo SD-WAN Edge a la central de proximidad.
 
 ![Visión del servicio SD-WAN](img/summary.png "summary")
 
 Figura 1. Visión del servicio SD-WAN
 
-En concreto, partimos del caso práctico de SD-WAN visto anteriormente en el
-curso (Figura  1.a), en el que se disponía de equipos SD-WAN Edge sencillos
-"intercalados" entre el router de la LAN de una sede remota y los equipos que
-dan salida hacia la red MPLS (MetroEthernet CE) y hacia el proveedor de Internet
-(Router de acceso a Internet). 
+En concreto, partimos de un entorno SD-WAN (Figura  1.a), en el que se dispone
+de equipos SD-WAN Edge sencillos "intercalados" entre el router de la LAN de una
+sede remota y los equipos que dan salida hacia la red MPLS (MetroEthernet CE) y
+hacia el proveedor de Internet (Router de acceso a Internet). 
 
 Como muestra la Figura 1.b, el objetivo será sustituir los equipos de la sede
 corporativa, tanto el equipo SD-WAN Edge como el router de acceso a Internet y
@@ -87,14 +86,32 @@ plataforma de código abierto [Open Source MANO (OSM)](https://osm.etsi.org).
 
 # Entorno
 
-La Figura 2 representa el entorno en el que se va a desarrollar la práctica, mostrando su relación con la arquitectura NFV definida por ETSI. Como plataforma de gestión de VNFs se utilizará la plataforma de referencia de ETSI, Open Source Mano (OSM), que, como se ha visto en la teoría, comprende los dos niveles superiores del MANO: el NFVO para gestionar el ciclo de vida de los servicios de red (NS); y el VNFM para gestionar el ciclo de vida de las funciones de red (VNF). Como Virtualized Infrastructure Manager (VIM) se va a utilizar un clúster de Kubernetes, que permite el despliegue de VNFs como contenedores, habitualmente denominados KNFs.
+La Figura 2 representa el entorno en el que se va a desarrollar la práctica,
+mostrando su relación con la arquitectura NFV definida por ETSI. Como plataforma
+de gestión de VNFs se utilizará la plataforma de referencia de ETSI, Open Source
+Mano (OSM), que, como se ha visto en la teoría, comprende los dos niveles
+superiores del MANO: el NFVO para gestionar el ciclo de vida de los servicios de
+red (NS); y el VNFM para gestionar el ciclo de vida de las funciones de red
+(VNF). Como Virtualized Infrastructure Manager (VIM) se va a utilizar un clúster
+de Kubernetes, que permite el despliegue de VNFs como contenedores,
+habitualmente denominados KNFs.
 
 ![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
 
 Figura 2. Arquitectura del entorno
 
-Kubernetes es una plataforma de código libre diseñada para el despliegue de aplicaciones basadas en contenedores. Proporciona múltiples funciones de escalabilidad, resistencia a fallos, actualizaciones y regresiones progresivas, etc. que la hacen muy adecuada para el despliegue de VNFs. Kubernetes incluye su propio gestor de paquetes, denominado Helm, que define la forma de crear y operar repositorios en los que se almacenan los denominados Charts (paquetes en terminología Helm). Básicamente, un Chart define un conjunto de recursos de Kubernetes (contenedores, balanceadores, etc.) que se pueden posteriormente desplegar sobre un clúster de Kubernetes. Adicionalmente, las imágenes de los contenedores usados por Kubernetes suelen almacenarse en repositorios privados o, más comúnmente, en el repositorio oficial de Docker denominado DockerHub.  
+Kubernetes es una plataforma de código libre diseñada para el despliegue de
+aplicaciones basadas en contenedores. Proporciona múltiples funciones de
+escalabilidad, resistencia a fallos, actualizaciones y regresiones progresivas,
+etc. que la hacen muy adecuada para el despliegue de VNFs. Kubernetes incluye su
+propio gestor de paquetes, denominado Helm, que define la forma de crear y
+operar repositorios en los que se almacenan los denominados Charts (paquetes en
+terminología Helm). Básicamente, un Chart define un conjunto de recursos de
+Kubernetes (contenedores, balanceadores, etc.) que se pueden posteriormente
+desplegar sobre un clúster de Kubernetes. Adicionalmente, las imágenes de los
+contenedores usados por Kubernetes suelen almacenarse en repositorios privados
+o, más comúnmente, en el repositorio oficial de Docker denominado DockerHub.  
 
 En la Figura 3 se aprecia con más detalle la relación entre las distintas
 plataformas y repositorios involucrados en la práctica, que consistirá en el
@@ -162,7 +179,8 @@ permite realizar pruebas de conectividad con servidores bien conocidos como el
   herramienta VNX utilizada para especificar y construir el escenario de red
 * [OSM](https://osm.etsi.org), página de ETSI sobre el proyecto _Open Source NFV
   Management and Orchestration (MANO) - OSM_
-* [Open vSwitch](https://www.openvswitch.org), switch software para ambientes Linux con soporte de OpenFlow
+* [Open vSwitch](https://www.openvswitch.org), switch software para ambientes
+  Linux con soporte de OpenFlow
   
 # Desarrollo de la práctica
 
@@ -353,7 +371,7 @@ También puede comprobar desde s1 el acceso a 8.8.8.8.
 ## 4. Servicio de red *corpcpe*
 
 Comenzaremos a continuación analizando el servicio de acceso a Internet
-corporativo *corpcpe*. La Figura muestra los detalles de ese servicio. En trazo
+corporativo *corpcpe*. La Figura 5 muestra los detalles de ese servicio. En trazo
 punteado se han señalado algunos componentes que se encuentra configurados,
 pero que no forman parte de este servicio, sino del servicio _sdedge_ que se
 verá más adelante, y que será el que incluya el acceso a la red MPLS para la
@@ -517,7 +535,7 @@ osm ns-delete $NSID1
 ## 5. Servicio de red *sdedge*
 A partir del servicio de red anterior, crearemos una nueva VNF y un nuevo NS
 para ofrecer mediante el entorno OSM el servicio *sdedge*, que está preparado
-para incluir la funcionalidad SD-WAN. La figura muestra los componentes
+para incluir la funcionalidad SD-WAN. La Figura 6 muestra los componentes
 adicionales del servicio.
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
@@ -729,7 +747,7 @@ entre los hosts h1 y h2 a través del túnel VXLAN inter-sedes sobre Internet,
 mientras que el tráfico entre los "teléfonos IP" t1 y t2 se continuará enviando
 a través de la red MPLS. 
 
-La figura muestra resaltados los componentes configurados para el servicio
+La Figura 7 muestra resaltados los componentes configurados para el servicio
 SD-WAN.
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
