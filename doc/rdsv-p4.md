@@ -221,6 +221,10 @@ El comando `bin/get-osmlab-k8s`:
 El objetivo es que esa carpeta compartida sea accesible tanto en el PC anfitrión
 como en la máquina virtual _RDSV-K8S_. 
 
+Arranque la máquina virtual, abra un terminal, y compruebe que puede acceder a  
+la carpeta compartida `~/shared` en la que ha descargado el repositorio de la 
+práctica.
+
 ### 1.1.alt Instalación y arranque de la máquina virtual en equipo propio
 
 Si utiliza su propio PC personal, tras descargar e importar la ova, utilice la
@@ -238,6 +242,10 @@ cd sdedge-ns
 ```
 
 ### 1.2 Instalación de la red privada virtual
+
+**El resto de la práctica se realiza sobre la máquina virtual. Por tanto, una 
+vez arrancada la máquina virtual, se recomienda maximizar la ventana de 
+VirtualBox.** 
 
 Utilizando la \<letra\> asignada por los profesores, instale la red privada
 virtual con el servidor OSM mediante:
