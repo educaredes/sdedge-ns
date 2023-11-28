@@ -221,7 +221,7 @@ El comando `bin/get-osmlab-k8s`:
 El objetivo es que esa carpeta compartida sea accesible tanto en el PC anfitrión
 como en la máquina virtual _RDSV-K8S_. 
 
-Arranque la máquina virtual, abra un terminal, y compruebe que puede acceder a  
+Arranque la máquina virtual, abra un terminal, y compruebe que puede acceder a 
 la carpeta compartida `~/shared` en la que ha descargado el repositorio de la 
 práctica.
 
@@ -325,7 +325,7 @@ Acceda a la opción de menú _K8s Repos_, haga clic sobre el botón
 
 *Figura 5. Configuración del repositorio de helm charts*
 
-En la carpeta compartida `$HOME/shared/sdw-lab/helm` puede encontrar la
+En la carpeta compartida `$HOME/shared/sdedge-ns/helm` puede encontrar la
 definición de los _helm charts_ que se usarán en esta práctica.
 
 ## 2.3 Instalación de descriptores en OSM
