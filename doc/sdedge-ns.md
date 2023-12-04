@@ -580,7 +580,7 @@ el servicio _corpcpe_.
 A continuación aplique la configuración:
 
 ```shell
-./sdedge1 
+./sdedge1.sh
 ```
 
 Y compruebe el funcionamiento del servicio, verificando que sigue teniendo
@@ -617,10 +617,10 @@ interfaz `eth0`. Observe que las direcciones asignadas son diferentes de las
 asignadas a las KNFs de _sdedge1_. 
 
 ### 5.7 (P) Conexión de sdedge2 a las redes externas y configuración
-Cree una copia del sdedge1:
+Cree una copia del sdedge1.sh:
 
 ```shell
-cp sdege1 sdedge2
+cp sdedge1.sh sdedge2.sh
 ```
 
 A partir de la información de las direcciones IP para la Sede remota 2 (vea
