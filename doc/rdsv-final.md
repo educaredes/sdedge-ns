@@ -8,7 +8,7 @@ RDSV/SDNV Recomendaciones sobre el trabajo final
   - [2.1 Carpetas](#21-carpetas)
   - [2.2 Repositorio docker](#22-repositorio-docker)
   - [2.3 Repositorio helm](#23-repositorio-helm)
-- [3.](#3)
+- [3. Modificación imágenes docker](#3-modificación-imágenes-docker)
 - [4. Modificación de la imagen de los contenedores de los escenarios VNX](#4-modificación-de-la-imagen-de-los-contenedores-de-los-escenarios-vnx)
   - [5. Partes opcionales](#5-partes-opcionales)
     - [Repositorio Docker privado](#repositorio-docker-privado)
@@ -18,7 +18,7 @@ RDSV/SDNV Recomendaciones sobre el trabajo final
 
 Siga las instrucciones del la [práctica 4](rdsv-p4.md) para instalar y arrancar
 la máquina virtual, y pruebe a desplegar el escenario VNX y el servicio _sdedge_
-para la Serde remota 1, para comprobar que la instalación funciona
+para la Sede remota 1, para comprobar que la instalación funciona
 correctamente. 
 
 # 2. Creación de repositorios propios
@@ -54,7 +54,8 @@ cd img
 docker login -u <cuenta>  # pedirá password la primera vez
 ```
 
-<!--> A continuación, para evitar que la instalación del paquete `tzdata` solicite
+<!-- 
+A continuación, para evitar que la instalación del paquete `tzdata` solicite
 interactivamente información sobre la zona horaria, añada al fichero
 `Dockerfile`, tras la primera línea:
 
@@ -69,17 +70,17 @@ Después, añada un fichero README.txt que incluya los nombres de los integrante
 del grupo en cada contenedor, mediante una sentencia COPY en el Dockerfile de cada
 imagen.
 
-Una vez hecho esto, puede crear cada uno de los contenedores. Por ejemplo, para el caso de `vnf-acccess`:
+Una vez hecho esto, puede crear cada uno de los contenedores. Por ejemplo, para el caso de `vnf-access`:
 
 ```
-cd vnf-acccess
-docker build -t <cuenta>/vnf-acccess .
+cd vnf-access
+docker build -t <cuenta>/vnf-access .
 ```
 
 Y subirlo a Docker Hub
 
 ```
-docker push <cuenta>/vnf-acccess
+docker push <cuenta>/vnf-access
 cd ..
 ```
 
@@ -156,7 +157,7 @@ y los ficheros instalados.
 
 # 3. Modificación imágenes docker
 
-Además, se pueden ya modificar los ficheros Dockerfile de cada una de las
+Modifique los ficheros Dockerfile de cada una de las
 imágenes  para que incluya otros paquetes de ubuntu que vaya a necesitar en la
 imagen. Deberá también añadir el fichero `qos_simple_switch_13.py` con la
 modificación que se propone en la [práctica de
