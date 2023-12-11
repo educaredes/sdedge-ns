@@ -16,7 +16,7 @@ RDSV/SDNV Recomendaciones sobre el trabajo final
 
 # 1. Instalación y arranque de la máquina virtual
 
-Siga las instrucciones del la [práctica 4](rdsv-p4.md) para instalar y arrancar
+Siga las instrucciones de la [práctica 4](rdsv-p4.md) para instalar y arrancar
 la máquina virtual, y pruebe a desplegar el escenario VNX y el servicio _sdedge_
 para la Sede remota 1, para comprobar que la instalación funciona
 correctamente. 
@@ -151,7 +151,7 @@ osm repo-add --type helm-chart --description "rdsvY repo" sdedge-ns-repo http://
 ```
 
 Finalmente, arranque desde OSM una instancia del servicio `sdedge` y mediante
-kubectl acceder a los contenedores para comprobar que incluyen el software
+kubectl acceda a los contenedores para comprobar que incluyen el software
 y los ficheros instalados.
 
 
