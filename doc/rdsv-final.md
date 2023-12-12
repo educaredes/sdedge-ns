@@ -33,6 +33,7 @@ práctica 4:
 - `json`
 - `pck`
 - `vnx`
+- `bin`
   
 Además, copie los scripts:
 - `start_sdedge.sh`
