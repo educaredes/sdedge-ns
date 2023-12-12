@@ -133,6 +133,13 @@ como carpeta para el contenido:
 ```shell
 docker run --name helm-repo -p 80:80 -v ~/helm-files:/usr/share/nginx/html:ro -d nginx
 ```
+
+Es conveniente añadir la opción --restart always para que el docker se arranque automáticamente:
+
+```shell
+docker run --restart always --name helm-repo -p 80:80 -v ~/helm-files:/usr/share/nginx/html:ro -d nginx
+```
+
 Compruebe que puede acceder al repositorio:
 
 ```shell
