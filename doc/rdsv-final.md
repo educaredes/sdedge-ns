@@ -36,6 +36,7 @@ práctica 4:
 - `bin`
   
 Además, copie los scripts:
+- `start_corpcpe.sh`
 - `start_sdedge.sh`
 - `start_sdwan.sh`
 - `osm_sdedge_start.sh`
