@@ -144,7 +144,7 @@ docker run --restart always --name helm-repo -p 80:80 -v ~/helm-files:/usr/share
 Compruebe que puede acceder al repositorio:
 
 ```shell
-curl http://10.11.13.<X>/index.html
+curl http://10.11.13.<X>/index.yaml
 ```
 
 Registre el nuevo repositorio en osm, borrando antes el repositorio previamente registrado:
