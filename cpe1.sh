@@ -23,11 +23,4 @@ export VCPEGW="10.100.1.254"
 #./osm_corpcpe_start.sh
 
 # HELM SECTION
-helm -n $OSMNS uninstall access$NETNUM cpe$NETNUM
-sleep 15
-
-helm -n $OSMNS install access$NETNUM accesschart-0.1.0.tgz
-helm -n $OSMNS install cpe$NETNUM cpechart-0.1.0.tgz
-sleep 10
-
 ./k8s_corpcpe_start.sh
