@@ -271,5 +271,16 @@
   271  history > history.txt
 
 
-git clone git@github.com:k8snetworkplumbingwg/ovs-cni.git && cd ovs-cni
+# Instalar helm 
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+
+# Instalar multus cni
+kubectl apply -f https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/master/deployments/multus-daemonset.yml
+
+# Instalar ovs cni
+git clone https://github.com:k8snetworkplumbingwg/ovs-cni.git && cd ovs-cni
 kubectl apply -f examples/ovs-cni.yml
