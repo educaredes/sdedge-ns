@@ -269,3 +269,7 @@
   269  kubectl -n rdsv get pods
   270  ls
   271  history > history.txt
+
+
+git clone git@github.com:k8snetworkplumbingwg/ovs-cni.git && cd ovs-cni
+kubectl apply -f examples/ovs-cni.yml
