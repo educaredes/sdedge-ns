@@ -38,7 +38,8 @@ Servicios SD-WAN en centrales de proximidad
   - [6. (P) Configuración y aplicación de políticas de la SD-WAN](#6-p-configuración-y-aplicación-de-políticas-de-la-sd-wan)
   - [7. Conclusiones](#7-conclusiones)
 - [Anexo I - Comandos](#anexo-i---comandos)
-- [Anexo II - Figuras](#anexo-ii---figuras)
+- [Anexo II - Ejecución sin OSM](#anexo-ii---ejecución-sin-osm)
+- [Anexo III - Figuras](#anexo-iii---figuras)
 
 # Resumen
 En esta práctica, se va a profundizar en las funciones de red virtualizadas
@@ -855,7 +856,62 @@ Arranca consolas de KNFs:
 bin/sdw-knf-consoles open <ns_id>
 ```
 
-# Anexo II - Figuras
+# Anexo II - Ejecución sin OSM
+
+The lab can be run without OSM MANO, using helm:
+
+- Download and uncompress the repository [sdedge-ns-main](https://github.com/educaredes/sdedge-ns/archive/refs/heads/main.zip)
+- Open a terminal and move to the uncompressed folder `cd sdege-ns-main`
+- Define the namespace to be used:
+
+```
+export OSMNS=rdsv
+```
+
+- run the vnx scenario 
+
+```
+sudo vnx -f vnx/sdedge_nfv.xml -t
+```
+
+- make sure the scripts cpeX.sh, sdedgeX.sh and sdwanX.sh call the k8s_ scripts
+instead of the osm_ scripts- [Resumen](#resumen)
+- [Entorno](#entorno)
+- [Escenario de la práctica](#escenario-de-la-práctica)
+- [Referencias](#referencias)
+- [Desarrollo de la práctica](#desarrollo-de-la-práctica)
+  - [1. Configuración del entorno](#1-configuración-del-entorno)
+    - [1.1 Instalación y arranque de la máquina virtual en el laboratorio](#11-instalación-y-arranque-de-la-máquina-virtual-en-el-laboratorio)
+    - [1.1.alt Instalación y arranque de la máquina virtual en equipo propio](#11alt-instalación-y-arranque-de-la-máquina-virtual-en-equipo-propio)
+    - [1.2 Instalación de la red privada virtual](#12-instalación-de-la-red-privada-virtual)
+    - [1.3 Definición OSM del clúster k8s y configuración de red](#13-definición-osm-del-clúster-k8s-y-configuración-de-red)
+  - [2. Interfaz gráfica de OSM](#2-interfaz-gráfica-de-osm)
+    - [2.1 Familiarización con la GUI de OSM](#21-familiarización-con-la-gui-de-osm)
+    - [2.2 Registro del repositorio de helm charts](#22-registro-del-repositorio-de-helm-charts)
+  - [2.3 Instalación de descriptores en OSM](#23-instalación-de-descriptores-en-osm)
+  - [3. Arranque del escenario de red](#3-arranque-del-escenario-de-red)
+  - [4. Servicio de red *corpcpe*](#4-servicio-de-red-corpcpe)
+    - [4.1 Análisis de las KNFs](#41-análisis-de-las-knfs)
+    - [4.2 Análisis del NS](#42-análisis-del-ns)
+    - [4.3 (P) Imágenes vnf-access y vnf-cpe](#43-p-imágenes-vnf-access-y-vnf-cpe)
+    - [4.4 Instanciación de corpcpe1](#44-instanciación-de-corpcpe1)
+    - [4.5 (P) Conexión a las redes externas y configuración](#45-p-conexión-a-las-redes-externas-y-configuración)
+  - [5. Servicio de red *sdedge*](#5-servicio-de-red-sdedge)
+    - [5.1 Onboarding de KNFs](#51-onboarding-de-knfs)
+    - [5.2 (P) Diseño y onboarding de NS](#52-p-diseño-y-onboarding-de-ns)
+    - [5.3 Imagen vnf-wan](#53-imagen-vnf-wan)
+    - [5.4 Instanciación de sdedge1](#54-instanciación-de-sdedge1)
+    - [5.5 Conexión de sdedge1 a las redes externas y configuración](#55-conexión-de-sdedge1-a-las-redes-externas-y-configuración)
+    - [5.6 Instanciación de sdedge2](#56-instanciación-de-sdedge2)
+    - [5.7 (P) Conexión de sdedge2 a las redes externas y configuración](#57-p-conexión-de-sdedge2-a-las-redes-externas-y-configuración)
+  - [6. (P) Configuración y aplicación de políticas de la SD-WAN](#6-p-configuración-y-aplicación-de-políticas-de-la-sd-wan)
+  - [7. Conclusiones](#7-conclusiones)
+- [Anexo I - Comandos](#anexo-i---comandos)
+- [Anexo II - Ejecución sin OSM](#anexo-ii---ejecución-sin-osm)
+- [Anexo III - Figuras](#anexo-iii---figuras)
+
+
+# Anexo III - Figuras
 
 ![Visión del servicio SD-WAN](img/summary.png "summary")
 
