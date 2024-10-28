@@ -1,46 +1,50 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "accesschart.fullname" . }}
+  name: {{ include "ejemplo.fullname" . }}
   labels:
-    {{- include "accesschart.labels" . | nindent 4 }}
+    {{- include "ejemplo.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "accesschart.selectorLabels" . | nindent 6 }}
+      {{- include "ejemplo.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- with .Values.podAnnotations }}
       annotations:
-        k8s.v1.cni.cncf.io/networks: accessnet1, accessnet2
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
-        {{- include "accesschart.selectorLabels" . | nindent 8 }}
+        {{- include "ejemplo.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "accesschart.serviceAccountName" . }}
+      serviceAccountName: {{ include "ejemplo.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            capabilities:
-              add: ["NET_ADMIN"]
-            privileged: true
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["sh", "-c", "touch /tmp/alive; tail -f /dev/null"]
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
           livenessProbe:
-            exec:
-              command: 
-              - cat 
-              - /tmp/alive 
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

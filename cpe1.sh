@@ -19,4 +19,8 @@ export VCPEPUBIP="10.100.1.1"
 # VCPEGW: the default gateway for the vcpe
 export VCPEGW="10.100.1.254"
 
-./osm_corpcpe_start.sh
+# OSM SECTION
+#./osm_corpcpe_start.sh
+
+# HELM SECTION
+./k8s_corpcpe_start.sh

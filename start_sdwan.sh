@@ -16,16 +16,16 @@ set -u # to verify variables are defined
 : $VWAN
 : $REMOTESITE
 
-if [[ ! $VCPE =~ "sdedge-ns-repo-cpechart"  ]]; then
+if [[ ! $VCPE =~ "-cpechart"  ]]; then
     echo ""       
     echo "ERROR: incorrect <cpe_deployment_id>: $VCPE"
     exit 1
 fi
 
-if [[ ! $VWAN =~ "sdedge-ns-repo-wanchart"  ]]; then
-    echo ""       
-    echo "ERROR: incorrect <wan_deployment_id>: $VWAN"
-    exit 1
+if [[ ! $VWAN =~ "-wanchart"  ]]; then
+   echo ""       
+   echo "ERROR: incorrect <wan_deployment_id>: $VWAN"
+   exit 1
 fi
 
 CPE_EXEC="$KUBECTL exec -n $OSMNS $VCPE --"
