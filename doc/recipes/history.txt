@@ -11,7 +11,7 @@
    11  sudo chown -R upm ~/.kube
    12  newgrp microk8s
    13  microk8s status --wait-ready
-   14  microk8s enable registry
+   14  microk8s enable registryOSM
    15  curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
    16  sudo apt-get install apt-transport-https --yes
    17  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
@@ -284,3 +284,13 @@ kubectl apply -f https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-c
 # Instalar ovs cni
 git clone https://github.com:k8snetworkplumbingwg/ovs-cni.git && cd ovs-cni
 kubectl apply -f examples/ovs-cni.yml
+
+# Cambiar el namespace
+https://www.baeldung.com/ops/kubernetes-switch-namespaces
+
+kubectl config set-context --current --namespace=<namespace-name>
+
+eso cambia el contexto utilizado, el contexto que se utiliza se puede ver
+ poniendo el modo depuración a 6 en kubectl  
+
+ kubectl -v6 get pods 

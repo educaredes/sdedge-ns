@@ -38,7 +38,8 @@ Servicios SD-WAN en centrales de proximidad
   - [6. (P) Configuración y aplicación de políticas de la SD-WAN](#6-p-configuración-y-aplicación-de-políticas-de-la-sd-wan)
   - [7. Conclusiones](#7-conclusiones)
 - [Anexo I - Comandos](#anexo-i---comandos)
-- [Anexo II - Figuras](#anexo-ii---figuras)
+- [Anexo II - Ejecución sin OSM](#anexo-ii---ejecución-sin-osm)
+- [Anexo III - Figuras](#anexo-iii---figuras)
 
 # Resumen
 En esta práctica, se va a profundizar en las funciones de red virtualizadas
@@ -855,7 +856,24 @@ Arranca consolas de KNFs:
 bin/sdw-knf-consoles open <ns_id>
 ```
 
-# Anexo II - Figuras
+# Anexo II - Ejecución sin OSM
+
+El laboratorio se puede ejecutar sin OSM MANO, utilizando helm:
+
+- Descargue y descomprima el repositorio [sdedge-ns-main](https://github.com/educaredes/sdedge-ns/archive/refs/heads/main.zip)
+- Abra un terminal y vaya a la carpeta descomprimida `cd sdege-ns-main`
+- Definir el espacio de nombres que se utilizará:
+
+```
+export OSMNS=rdsv
+```
+
+- asegúrese de que los scripts `cpeX.sh`, `sdedgeX.sh` y `sdwanX.sh` llaman a los scripts `k8s_*`
+en lugar de los scripts `osm_*`
+
+- use `uninstall.sh` cuando termine para desinstalar los despliegues realizados en k8s
+
+# Anexo III - Figuras
 
 ![Visión del servicio SD-WAN](img/summary.png "summary")
 
