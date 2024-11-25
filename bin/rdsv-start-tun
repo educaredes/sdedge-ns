@@ -165,7 +165,8 @@ sudo rm -rf /etc/tinc/*
 sudo cp -a * /etc/tinc
 
 # Añadido el 25/11/24 debido al cambio de OSM a maquina virtual
-sudo bash -c 'echo "10.11.13.1 vosm.dit.upm.es" >> /etc/hosts'
+sudo sed -i -e '/.*vosm.dit.upm.es.*/d' $ETCHOSTS
+sudo bash -c "echo '10.11.13.1 vosm.dit.upm.es' >> $ETCHOSTS"
 sudo sed -i 's/Mode = router/Mode = switch/' /etc/tinc/vnxtun?/tinc.conf
 
 # Enable and start tinc service 
