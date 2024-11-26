@@ -16,7 +16,7 @@ sed -i -e '/OSM_USER/d' \
 
 echo "export OSM_USER=rdsv$SCEN" >> ~/.bashrc
 echo "export OSM_PASSWORD=Xxxxx1-$SCEN" >> ~/.bashrc
-echo "export OSM_PROJECT=rpry$SCEN" >> ~/.bashrc
+echo "export OSM_PROJECT=rprj$SCEN" >> ~/.bashrc
 
 echo "export OSM_HOSTNAME=vosm-nbi.dit.upm.es" >> ~/.bashrc
 echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
@@ -24,7 +24,7 @@ echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
 #source ~/.bashrc 
 export OSM_USER=rdsv$SCEN
 export OSM_PASSWORD=Xxxxx1-$SCEN
-export OSM_PROJECT=rpry$SCEN
+export OSM_PROJECT=rprj$SCEN
 export OSM_HOSTNAME=vosm-nbi.dit.upm.es
 
 echo "-- "
