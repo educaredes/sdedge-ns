@@ -1,7 +1,10 @@
 #!/bin/bash
-echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
 
-SDWNS='rdsv'
+SDWNS=rdsv
+
+echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
+echo "export SDWNS=$SDWNS" >> ~/.bashrc
+
 microk8s kubectl create namespace $SDWNS 
 microk8s kubectl get namespace $SDWNS 
 

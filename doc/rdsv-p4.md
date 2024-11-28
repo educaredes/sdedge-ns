@@ -226,10 +226,25 @@ cd sdedge-ns
 
 Ejecute los comandos:
 
-```
+```shell
 cd ~/shared/bin
-./prepare-k8slab
-export SDWNS=rdsv  # defines cluster namespace
+./prepare-k8slab   # creates namespace and network resources
+```
+
+Cierre la ventana de terminal y vuelva a abrirla o aplique los cambios
+necesarios mediante:
+
+```shell
+source ~/.basrhc
+```
+
+Compruebe que el valor de la variable de entorno SDWNS se ha definido
+correctamente con:
+
+```shell
+echo $SDWNS
+# debe mostrar el valor
+# 'rdsv'
 ```
 
 ## 2. Arranque del escenario de red 
@@ -248,7 +263,7 @@ _container network interface_ (CNI) para Kubernetes.
 Compruebe que están creados los correspondientes _Network
 Attachment Definitions_ de _Multus_ ejecutando el comando:
 
-```
+```shell
 kubectl get -n $SDWNS network-attachment-definitions
 ```
 
