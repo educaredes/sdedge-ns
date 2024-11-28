@@ -275,11 +275,11 @@ También puede comprobar desde s1 el acceso a 8.8.8.8.
 ## 4. Servicio de red *corpcpe*
 
 Comenzaremos a continuación analizando el servicio de acceso a Internet
-corporativo *corpcpe*. La Figura 5 muestra los detalles de ese servicio. En trazo
-punteado se han señalado algunos componentes que se encuentra configurados,
-pero que no forman parte de este servicio, sino del servicio _sdedge_ que se
-verá más adelante, y que será el que incluya el acceso a la red MPLS para la
-comunicación entre sedes de la red corporativa. 
+corporativo *corpcpe*. La Figura 5 muestra los detalles de ese servicio. En
+trazo punteado se han señalado algunos componentes que se encuentran
+configurados, pero que no forman parte de este servicio, sino del servicio
+_sdedge_ que se verá más adelante, y que será el que incluya el acceso a la red
+MPLS para la comunicación entre sedes de la red corporativa. 
 
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
 
