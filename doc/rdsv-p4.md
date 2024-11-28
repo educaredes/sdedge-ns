@@ -10,6 +10,7 @@ Servicios SD-WAN en centrales de proximidad
   - [1. Configuración del entorno](#1-configuración-del-entorno)
     - [1.1 Instalación y arranque de la máquina virtual en el laboratorio](#11-instalación-y-arranque-de-la-máquina-virtual-en-el-laboratorio)
     - [1.1.alt Instalación y arranque de la máquina virtual en equipo propio](#11alt-instalación-y-arranque-de-la-máquina-virtual-en-equipo-propio)
+    - [1.2 Preparación del entorno](#12-preparación-del-entorno)
   - [2. Arranque del escenario de red](#2-arranque-del-escenario-de-red)
   - [4. Servicio de red *corpcpe*](#4-servicio-de-red-corpcpe)
     - [4.1 (P) Imágenes vnf-access y vnf-cpe](#41-p-imágenes-vnf-access-y-vnf-cpe)
@@ -191,7 +192,7 @@ cd sdedge-ns
 A continuación, ejecute:
 
 ```
-chmod +x bin/get-osmlab-k8s
+chmod +x bin/*
 bin/get-osmlab-k8s
 ```
 
@@ -219,6 +220,16 @@ repositorio de la práctica:
 cd ~/shared
 git clone https://github.com/educaredes/sdedge-ns.git
 cd sdedge-ns
+```
+
+### 1.2 Preparación del entorno
+
+Ejecute los comandos:
+
+```
+cd ~/shared/bin
+./prepare-k8slab
+export OSMNS=rdsv
 ```
 
 ## 2. Arranque del escenario de red 
@@ -303,6 +314,7 @@ Cree una instancia del servicio que dará acceso a Internet a la sede 1.
 Para ello, utilice:
 
 ```shell
+cd ~/shared/sdedge-ns
 ./cpe1.sh
 ```
 
@@ -334,7 +346,7 @@ Acceda al contenido del fichero:
 cat cpe1.sh
 ```
 
-Acceda también al contenido de los ficheros *osm_corpcpe_start.sh* y
+Acceda también al contenido de los ficheros *k8s_corpcpe_start.sh* y
 *start_corpcpe.sh* que se invocan desde _cpe1.sh_.
 
 :point_right: A partir del contenido del script _cpe1.sh_ y los demás scripts
@@ -418,7 +430,7 @@ diff osm_corpcpe_start.sh osm_sdedge_start.sh
 ```
 
 Y explique las diferencias observadas. Acceda también al contenido del fichero
-*start_sdedge.sh* que se invoca desde *osm_sdedge_start.sh*.
+*start_sdedge.sh* que se invoca desde *k8s_sdedge_start.sh*.
 
 :point_right: A partir del contenido de los distintos scripts, analice y
 describa resumidamente los pasos que se están siguiendo para realizar la
@@ -505,7 +517,7 @@ SD-WAN.
 *Figura 8. Servicio de red sdedge configurado para SD-WAN*
 
 Para realizar las configuraciones de SD-WAN sobre el servicio de red _sdedge_ se
-utiliza el script _sdwan1.sh_ junto a los scripts *osm_sdwan_start.sh* y
+utiliza el script _sdwan1.sh_ junto a los scripts *k8s_sdwan_start.sh* y
 *start_sdwan.sh*. Acceda al contenido de esos ficheros, así como al contenido de
 la carpeta _json_.
 
@@ -562,20 +574,6 @@ y sus sugerencias.
 
 # Anexo I - Comandos 
 
-Muestra los descriptores registrados:
-
-```
-osm nsd-list
-osm vnfd-list
-```
-
-Muestra las vnf y los ns activos:
-
-```
-osm ns-list
-osm vnf-list
-```
-
 Ejecuta un `<comando>` en un pod:
 
 ```
@@ -596,7 +594,7 @@ bin/sdw-knf-consoles open <ns_id>
 
 # Anexo II - Ejecución sin OSM
 
-El laboratorio se puede ejecutar sin OSM MANO, utilizando helm:
+El laboratorio se ejecutar utilizando helm:
 
 - Descargue y descomprima el repositorio [sdedge-ns-main](https://github.com/educaredes/sdedge-ns/archive/refs/heads/main.zip)
 - Abra un terminal y vaya a la carpeta descomprimida `cd sdege-ns-main`

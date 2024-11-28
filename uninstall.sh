@@ -11,3 +11,5 @@ do
     helm -n $OSMNS uninstall $VNF$NETNUM 
   done
 done
+
+microk8s kubectl delete deployments --all

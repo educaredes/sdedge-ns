@@ -4,6 +4,7 @@
 knfnames=('access' 'cpe' 'wan')
 
 KNFCMD="microk8s kubectl exec -n $OSMNS -it"
+KNFDS="microk8s kubectl get deployments -n $OSMNS"
 
 allknfs=${knfnames[*]}
 USAGE="
@@ -23,7 +24,9 @@ Usage:
 "
 
 function deployment_id() {
-    echo "deploy/$2$2-$2"
+    suffix='chart'
+    PATTERN="^$2$1-$2$suffix "
+    echo `$KNFDS | grep -o $PATTERN` 
 }
 
 function knf_console {
@@ -35,9 +38,9 @@ function knf_console {
     if [ "$cmd" == 'open' ]; then
         echo "--"
         echo "-- Starting console of knf $knfname of NS $nsid"
-        # Get OSM id
-        OSMID=$(deployment_id $nsid $knfname)
-	    if [ "$OSMID" ]; then 
+        # Get Deployment id
+        DID=$(deployment_id $nsid $knfname)
+	    if [ "$DID" ]; then 
             KID="deploy/$OSMID"
             # Set KNF hostname
             echo "$KNFCMD $KID -- hostname $knfname-$nsid"
