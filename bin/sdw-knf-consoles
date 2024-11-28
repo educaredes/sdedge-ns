@@ -41,7 +41,7 @@ function knf_console {
         # Get Deployment id
         DID=$(deployment_id $nsid $knfname)
 	    if [ "$DID" ]; then 
-            KID="deploy/$OSMID"
+            KID="deploy/$DID"
             # Set KNF hostname
             echo "$KNFCMD $KID -- hostname $knfname-$nsid"
             $KNFCMD $KID -- hostname $knfname-$nsid
