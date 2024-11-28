@@ -1,15 +1,15 @@
 #VNXLAB2022-v3
-export OSMNS=7b2950d8-f92b-4041-9a55-8d1837ad7b0a
+export SDWNS=7b2950d8-f92b-4041-9a55-8d1837ad7b0a
 
 # copia  de cosas
 # ya está copiado 
-# microk8s kubectl -n $OSMNS cp /usr/bin/vnx_config_nat $VCPE1_CPE:/usr/bin
+# microk8s kubectl -n $SDWNS cp /usr/bin/vnx_config_nat $VCPE1_CPE:/usr/bin
 
-microk8s kubectl -n $OSMNS cp conf/dhcpd-1.conf $VCPE1_CPE:/etc/dhcp/dhcpd.conf
+microk8s kubectl -n $SDWNS cp conf/dhcpd-1.conf $VCPE1_CPE:/etc/dhcp/dhcpd.conf
 
 
-IP_ACCESS=`microk8s kubectl exec -n $OSMNS -it $VCPE1_ACCESS -- hostname`
-IP_CPE=`microk8s kubectl exec -n $OSMNS -it $VCPE1_CPE -- hostname`
+IP_ACCESS=`microk8s kubectl exec -n $SDWNS -it $VCPE1_ACCESS -- hostname`
+IP_CPE=`microk8s kubectl exec -n $SDWNS -it $VCPE1_CPE -- hostname`
 
 #ACCESS KNF
 #hacia AccessNet1

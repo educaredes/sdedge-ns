@@ -2,7 +2,7 @@
 
 # Requires the following variables
 # KUBECTL: kubectl command
-# OSMNS: OSM namespace in the cluster vim
+# SDWNS: cluster namespace in the cluster vim
 # NETNUM: used to select external networks
 # VCPE: "pod_id" or "deploy/deployment_id" of the cpd vnf
 # VWAN: "pod_id" or "deploy/deployment_id" of the wan vnf
@@ -10,7 +10,7 @@
 
 set -u # to verify variables are defined
 : $KUBECTL
-: $OSMNS
+: $SDWNS
 : $NETNUM
 : $VCPE
 : $VWAN
@@ -28,8 +28,8 @@ if [[ ! $VWAN =~ "-wanchart"  ]]; then
    exit 1
 fi
 
-CPE_EXEC="$KUBECTL exec -n $OSMNS $VCPE --"
-WAN_EXEC="$KUBECTL exec -n $OSMNS $VWAN --"
+CPE_EXEC="$KUBECTL exec -n $SDWNS $VCPE --"
+WAN_EXEC="$KUBECTL exec -n $SDWNS $VWAN --"
 WAN_SERV="${VWAN/deploy\//}"
 
 # Router por defecto inicial en k8s (calico)
@@ -44,7 +44,7 @@ echo "IPCPE = $IPCPE"
 IPWAN=`$WAN_EXEC hostname -I | awk '{print $1}'`
 echo "IPWAN = $IPWAN"
 
-PORTWAN=`$KUBECTL get -n $OSMNS -o jsonpath="{.spec.ports[0].nodePort}" service $WAN_SERV`
+PORTWAN=`$KUBECTL get -n $SDWNS -o jsonpath="{.spec.ports[0].nodePort}" service $WAN_SERV`
 echo "PORTWAN = $PORTWAN"
 
 ## 2. En VNF:cpe agregar un bridge y sus vxlan

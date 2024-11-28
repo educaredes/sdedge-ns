@@ -25,9 +25,9 @@ sudo ovs-vsctl add-br AccessNet2
 
 sudo ovs-vsctl add-br ExtNet2
 
-export OSMNS="7b2950d8-f92b-4041-9a55-8d1837ad7b0a"
+export SDWNS="7b2950d8-f92b-4041-9a55-8d1837ad7b0a"
 
-sudo cat <<EOF | microk8s kubectl -n $OSMNS create -f -
+sudo cat <<EOF | microk8s kubectl -n $SDWNS create -f -
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
@@ -42,7 +42,7 @@ spec:
   }'
 EOF
 
-sudo cat <<EOF | microk8s kubectl -n $OSMNS create -f -
+sudo cat <<EOF | microk8s kubectl -n $SDWNS create -f -
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
@@ -88,23 +88,23 @@ export VACC1=helmchartrepo-accesschart-...
 export VCPE1=helmchartrepo-cpechart-...
 
 # OLD A partir del identificador parcial, en la maquina k8s, fijar variable para abrir consolas
-export OSMNS="7b2950d8-f92b-4041-9a55-8d1837ad7b0a"
-export VACC1=$(microk8s kubectl -n $OSMNS get pods | grep helmchartrepo-accesschart-0023192822 | awk '{print $1}')
-export VCPE1=$( microk8s kubectl -n $OSMNS get pods | grep helmchartrepo-cpechart-0091594704 | awk '{print $1}')
+export SDWNS="7b2950d8-f92b-4041-9a55-8d1837ad7b0a"
+export VACC1=$(microk8s kubectl -n $SDWNS get pods | grep helmchartrepo-accesschart-0023192822 | awk '{print $1}')
+export VCPE1=$( microk8s kubectl -n $SDWNS get pods | grep helmchartrepo-cpechart-0091594704 | awk '{print $1}')
 
 
 
 # OLD Sin identificador parcial, con un solo servicio de red en la maquina k8s, fijar variable para abrir consolas
-export OSMNS="7b2950d8-f92b-4041-9a55-8d1837ad7b0a"
-export VCPE1=$(microk8s kubectl -n $OSMNS get pods | grep helmchartrepo-cpechart | awk '{print $1}')
-export VACC1=$(microk8s kubectl -n $OSMNS get pods | grep helmchartrepo-accesschart | awk '{print $1}')
+export SDWNS="7b2950d8-f92b-4041-9a55-8d1837ad7b0a"
+export VCPE1=$(microk8s kubectl -n $SDWNS get pods | grep helmchartrepo-cpechart | awk '{print $1}')
+export VACC1=$(microk8s kubectl -n $SDWNS get pods | grep helmchartrepo-accesschart | awk '{print $1}')
 
 
 Abrir consola 
 
-microk8s kubectl exec -n $OSMNS -it deploy/$VACC1 -- /bin/bash
+microk8s kubectl exec -n $SDWNS -it deploy/$VACC1 -- /bin/bash
 
-microk8s kubectl exec -n $OSMNS -it deploy/$VCPE1 -- /bin/bash
+microk8s kubectl exec -n $SDWNS -it deploy/$VCPE1 -- /bin/bash
 
 
 TRAS ELLO, CREAR LOS ESCENARIOS VNX Y HACER LO DE "Configuracion rutas practica OSM"
@@ -113,9 +113,9 @@ Troubleshooting
 
 Para pods que aparecen sin que los queramos --> borrar los deployments
 
-microk8s kubectl get deployments -n $OSMNS # obtenemos los nombres a borrar, DEPLOYMENT, sirve también para ver si los deployments están READY
+microk8s kubectl get deployments -n $SDWNS # obtenemos los nombres a borrar, DEPLOYMENT, sirve también para ver si los deployments están READY
 
-microk8s kubectl delete -n $OSMNS deployment DEPLOYMENT
+microk8s kubectl delete -n $SDWNS deployment DEPLOYMENT
 
 https://kubernetes.io/docs/reference/kubectl/cheatsheet/#interacting-with-deployments-and-services
 
@@ -284,13 +284,13 @@ osm k8scluster-show --literal $KID | grep -A1 projects
 Define a variable to store this value, which will be used in the lab scripts.
 
 ```
-export OSMNS=<namespace> #  no spaces and no < >
+export SDWNS=<namespace> #  no spaces and no < >
 ```
 
 > **Example:**
 > 
 >```
->export OSMNS=66ad98eb-bc56-48a9-96c8-8d14c612931c
+>export SDWNS=66ad98eb-bc56-48a9-96c8-8d14c612931c
 >```
 
 Check if the namespace exists with:
@@ -304,7 +304,7 @@ OSM the first time a service is instantiated, but in our case we create it
 before so we can do the configuration for the next step):
 
 ```
-kubectl create namespace $OSMNS 
+kubectl create namespace $SDWNS 
 ```
 
 And use the _get namespaces_ command again to check if it has been created. 
@@ -315,7 +315,7 @@ Attachment Definitions associated to that namespace must be created by executing
 the commands:
 
 ```
-cat <<EOF | kubectl create -n $OSMNS -f -
+cat <<EOF | kubectl create -n $SDWNS -f -
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
@@ -330,7 +330,7 @@ spec:
  }'
 EOF
 
-cat <<EOF | kubectl create -n $OSMNS -f -
+cat <<EOF | kubectl create -n $SDWNS -f -
 apiVersion: "k8s.cni.cncf.io/v1"
 kind: NetworkAttachmentDefinition
 metadata:
@@ -350,13 +350,13 @@ EOF
 Check that they have been created with
 
 ```
-kubectl get -n $OSMNS network-attachment-definitions
+kubectl get -n $SDWNS network-attachment-definitions
 ```
 
 > **Example:**
 >
 >```
->~> kubectl get -n $OSMNS network-attachment-definitions
+>~> kubectl get -n $SDWNS network-attachment-definitions
 >NAME         AGE
 >extnet1      90s
 >accessnet1   88s
@@ -365,8 +365,8 @@ kubectl get -n $OSMNS network-attachment-definitions
 And check the details, with
 
 ```
-kubectl get -n $OSMNS network-attachment-definition extnet1 -o yaml
-kubectl get -n $OSMNS network-attachment-definition accessnet1 -o yaml
+kubectl get -n $SDWNS network-attachment-definition extnet1 -o yaml
+kubectl get -n $SDWNS network-attachment-definition accessnet1 -o yaml
 ```
 
 Create a docker image using the folder name

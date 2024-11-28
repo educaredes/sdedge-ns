@@ -3,7 +3,7 @@
 # List of knfs names
 knfnames=('access' 'cpe' 'wan')
 
-KNFCMD="microk8s kubectl exec -n $OSMNS -it"
+KNFCMD="microk8s kubectl exec -n $SDWNS -it"
 
 allknfs=${knfnames[*]}
 USAGE="
@@ -65,9 +65,9 @@ function knf_console {
 #
 # Main
 #
-if [ ! "$OSMNS" ] ; then
+if [ ! "$SDWNS" ] ; then
     echo ""
-    echo "ERROR: OSMNS variable not defined"
+    echo "ERROR: SDWNS variable not defined"
     exit 1
 fi
 

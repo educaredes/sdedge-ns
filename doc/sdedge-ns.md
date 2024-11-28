@@ -216,14 +216,14 @@ A continuación, **cierre el terminal** y abra uno nuevo.
 
 En el nuevo terminal, obtenga los valores asignados a las diferentes variables
 configuradas para acceder a OSM (OSM_*) y el identificador del _namespace_ de
-K8S creado para OSM (OSMNS):
+K8S creado para OSM (SDWNS):
 
 ```
 echo "-- OSM_USER=$OSM_USER"
 echo "-- OSM_PASSWORD=$OSM_PASSWORD"
 echo "-- OSM_PROJECT=$OSM_PROJECT"
 echo "-- OSM_HOSTNAME=$OSM_HOSTNAME"
-echo "-- OSMNS=$OSMNS"
+echo "-- SDWNS=$SDWNS"
 ```
 
 
@@ -279,7 +279,7 @@ Compruebe que también están creados los correspondientes _Network
 Attachment Definitions_ de _Multus_ ejecutando el comando:
 
 ```
-kubectl get -n $OSMNS network-attachment-definitions
+kubectl get -n $SDWNS network-attachment-definitions
 ```
 
 A continuación arranque el escenario con:
@@ -754,13 +754,13 @@ osm vnf-list
 Ejecuta un `<comando>` en un pod:
 
 ```
-kubectl  -n $OSMNS exec -it $PING -- <comando>
+kubectl  -n $SDWNS exec -it $PING -- <comando>
 ```
 
 Abre una shell en un pod:
 
 ```
-kubectl  -n $OSMNS exec -it $PING -- /bin/sh
+kubectl  -n $SDWNS exec -it $PING -- /bin/sh
 ```
 
 Arranca consolas de KNFs:

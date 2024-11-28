@@ -1,7 +1,7 @@
 #!/bin/bash
   
 # Requires the following variables
-# OSMNS:  namespace in the cluster vim
+# SDWNS:  namespace in the cluster vim
 # NETNUM: used to select external networks
 # CUSTUNIP: the ip address for the customer side of the tunnel
 # VNFTUNIP: the ip address for the vnf side of the tunnel
@@ -9,7 +9,7 @@
 # VCPEGW: the default gateway for the vcpe
 
 set -u # to verify variables are defined
-: $OSMNS
+: $SDWNS
 : $NETNUM
 : $CUSTUNIP
 : $VNFTUNIP
@@ -23,7 +23,7 @@ echo "## 0. Instalación de las vnfs"
 
 for vnf in access cpe
 do
-  helm -n $OSMNS uninstall $vnf$NETNUM 
+  helm -n $SDWNS uninstall $vnf$NETNUM 
 done
 
 sleep 15
@@ -31,7 +31,7 @@ sleep 15
 chart_suffix="chart-0.1.0.tgz"
 for vnf in access cpe
 do
-  helm -n $OSMNS install $vnf$NETNUM $vnf$chart_suffix
+  helm -n $SDWNS install $vnf$NETNUM $vnf$chart_suffix
 done
 
 sleep 10

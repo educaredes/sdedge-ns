@@ -1,7 +1,7 @@
 #!/bin/bash
   
 # Requires the following variables
-# OSMNS: OSM namespace in the cluster vim
+# SDWNS: cluster namespace in the cluster vim
 # SIID: id of the service instance
 # NETNUM: used to select external networks
 # CUSTUNIP: the ip address for the customer side of the tunnel
@@ -10,7 +10,7 @@
 # VCPEGW: the default gateway for the vcpe
 
 set -u # to verify variables are defined
-: $OSMNS
+: $SDWNS
 : $SIID
 : $NETNUM
 : $CUSTUNIP

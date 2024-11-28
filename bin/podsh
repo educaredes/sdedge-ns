@@ -1,3 +1,3 @@
 #!/bin/bash
-microk8s kubectl exec -n $OSMNS -it $1 -- /bin/bash
+microk8s kubectl exec -n $SDWNS -it $1 -- /bin/bash
 
