@@ -21,20 +21,27 @@ export KUBECTL="microk8s kubectl"
 ## 0. Instalación
 echo "## 0. Instalación de las vnfs"
 
+echo "### 0.1 Limpieza (ignorar errores)"
+
 for vnf in access cpe wan
 do
   helm -n $SDWNS uninstall $vnf$NETNUM 
 done
 
-sleep 15
+for i in {1..15}; do echo -n "."; sleep 1; done
+echo ''
+
+echo "### 0.2 Creación de contenedores"
 
 chart_suffix="chart-0.1.0.tgz"
 for vnf in access cpe wan
 do
+  echo '#### $vnf$NETNUM'
   helm -n $SDWNS install $vnf$NETNUM $vnf$chart_suffix
 done
 
-sleep 10
+for i in {1..30}; do echo -n "."; sleep 1; done
+echo ''
 
 export VACC="deploy/access$NETNUM-accesschart"
 export VCPE="deploy/cpe$NETNUM-cpechart"
