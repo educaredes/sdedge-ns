@@ -229,7 +229,7 @@ Ejecute los comandos:
 ```
 cd ~/shared/bin
 ./prepare-k8slab
-export SDWNS=rdsv
+export SDWNS=rdsv  # defines cluster namespace
 ```
 
 ## 2. Arranque del escenario de red 
