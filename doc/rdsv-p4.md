@@ -518,12 +518,12 @@ entre los hosts h1 y h2 a través del túnel VXLAN inter-sedes sobre Internet,
 mientras que el tráfico entre los "teléfonos IP" t1 y t2 se continuará enviando
 a través de la red MPLS. 
 
-La Figura 8 muestra resaltados los componentes configurados para el servicio
+La Figura 7 muestra resaltados los componentes configurados para el servicio
 SD-WAN.
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
 
-*Figura 8. Servicio de red sdedge configurado para SD-WAN*
+*Figura 7. Servicio de red sdedge configurado para SD-WAN*
 
 Para realizar las configuraciones de SD-WAN sobre el servicio de red _sdedge_ se
 utiliza el script _sdwan1.sh_ junto a los scripts *k8s_sdwan_start.sh* y
@@ -568,7 +568,14 @@ adjuntarla como resultado de la práctica.
 
 :point_right: Analice el tráfico capturado y explique las direcciones MAC e IP
 que se ven en los distintos niveles del tráfico, teniendo en cuenta que se ha
-encapsulado por un túnel VXLAN.
+encapsulado por un túnel VXLAN. Para que wireshark decodifique correctamente las 
+cabeceras VXLAN, pinche sobre un paquete y use la opción de menú 
+"Analyze->Decode As...", y luego haga doble click en la columna "Current" y
+seleccione "VXLAN". 
+
+![Wireshark decode as](img/wireshark-decode-as.png "wireshark")
+
+*Figura 8. Selección de decodificación de paquetes en Wireshark*
 
 * Desde t1 lance un ping a t2 (dir. IP 10.20.2.200). El tráfico no debe pasar
   por isp1-isp2, se debe encaminar por MPLS.
