@@ -1,13 +1,15 @@
 #!/bin/bash
 
 set -u # to verify variables are defined
-: $OSMNS
+: $SDWNS
 
 # HELM SECTION
 for NETNUM in {1..2}
 do
   for VNF in access cpe wan
   do
-    helm -n $OSMNS uninstall $VNF$NETNUM 
+    helm -n $SDWNS uninstall $VNF$NETNUM 
   done
 done
+
+microk8s kubectl delete deployments --all

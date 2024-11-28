@@ -4,29 +4,30 @@
 knfnames=('access' 'cpe' 'wan')
 
 KNFCMD="microk8s kubectl exec -n $SDWNS -it"
-KNFDS="microk8s kubectl get deployments -n $SDWNS"
 
 allknfs=${knfnames[*]}
 USAGE="
 Usage:
-  sdw-knf-consoles <cmd> <ns_id>
+  sdw-knf-consoles <cmd> <ns_id> <ns_name>
     to open|close all consoles
     Valid values:
       <cmd>: open close
-      <ns_id>: network service id [1,2]
+      <ns_id>: OSM network service id
 
-  sdw-knf-consoles <cmd> <ns_id> <knf-name>
+  sdw-knf-consoles <cmd> <ns_id> <ns_name> <knf-name>
        to open the console of a specific knf
        Valid values:
            <cmd>: open close
-           <ns_id>: network service id [1,2]
+           <ns_id>: OSM network service id
            <knf-name>: $allknfs
 "
 
 function deployment_id() {
-    suffix='chart'
-    PATTERN="^$2$1-$2$suffix "
-    echo `$KNFDS | grep -o $PATTERN` 
+    echo `osm ns-show $1 | grep kdu-instance | grep $2 | awk -F':' '{gsub(/[", |]/, "", $2); print $2}' `
+}
+
+function ns_name() {
+    echo `osm ns-show $1 | grep short-name | awk -F'|' '{gsub(/[", ]/, "", $3); print $3}' `
 }
 
 function knf_console {
@@ -38,25 +39,26 @@ function knf_console {
     if [ "$cmd" == 'open' ]; then
         echo "--"
         echo "-- Starting console of knf $knfname of NS $nsid"
-        # Get Deployment id
-        DID=$(deployment_id $nsid $knfname)
-	    if [ "$DID" ]; then 
-            KID="deploy/$DID"
+        # Get OSM id
+        OSMID=$(deployment_id $nsid $knfname)
+        nsname=$(ns_name $nsid)
+	    if [ "$OSMID" ]; then 
+            KID="deploy/$OSMID"
             # Set KNF hostname
-            echo "$KNFCMD $KID -- hostname $knfname-$nsid"
-            $KNFCMD $KID -- hostname $knfname-$nsid
+            echo "$KNFCMD $KID -- hostname $nsname-$knfname"
+            $KNFCMD $KID -- hostname $nsname-$knfname
 
             # Start console
-            echo "xfce4-terminal --title $knfname-$nsid --hide-menubar -x $KNFCMD $KID \-\- /bin/bash >/dev/null 2>&1 &"
-            xfce4-terminal --title $knfname-$nsid --hide-menubar -x $KNFCMD $KID \-\- /bin/bash >/dev/null 2>&1 &
+            echo "xfce4-terminal --title $nsname-$knfname --hide-menubar -x $KNFCMD $KID \-\- /bin/bash >/dev/null 2>&1 &"
+            xfce4-terminal --title $nsname-$knfname --hide-menubar -x $KNFCMD $KID \-\- /bin/bash >/dev/null 2>&1 &
 	    else
-	        echo "-- WARNING: knf $knfname-$nsid not started"
+	        echo "-- WARNING: knf $nsname-$knfname not started"
 	    fi
 
     elif [ "$cmd" == 'close' ]; then
         echo "--"
-        echo "-- Closing console of knf $knfname-$nsid"
-        while wmctrl -c $knfname-$nsid; do sleep 0.5; done
+        echo "-- Closing console of knf $knfname of NS $nsname"
+        while wmctrl -c $nsname-$knfname; do sleep 0.5; done
     fi
 }
 

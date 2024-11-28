@@ -65,7 +65,7 @@
    65  helm install cpe1 ./cpe-0.1.0.tgz 
    66  helm install corpcpe1 ./corpcpe-0.1.0.tgz 
    67  helm install cpe1 ./cpechart-0.1.0.tgz 
-   68  echo $OSMNS
+   68  echo $SDWNS
    69  kubectl get-namespaces
    70  kubectl get-namespace
    71  kubectl get namespace --all
@@ -76,7 +76,7 @@
    76  helm install -n rdsv cpe1 ./cpechart-0.1.0.tgz 
    77  helm install -n rdsv access1 ./accesschart-0.1.0.tgz 
    78  vi cpe1.sh 
-   79  export OSMNS=rdsv
+   79  export SDWNS=rdsv
    80  vi cpe1.sh 
    81  vi osm_corpcpe_start.sh 
    82  kubectl -n rdsv get deployments

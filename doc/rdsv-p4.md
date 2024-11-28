@@ -1,10 +1,6 @@
 <!-- omit from toc -->
-Plataforma de orquestación de servicios basados en NFV
-======================================================
-
-<!-- omit from toc -->
 Servicios SD-WAN en centrales de proximidad
--------------------------------------------
+===========================================
 
 - [Resumen](#resumen)
 - [Entorno](#entorno)
@@ -14,43 +10,32 @@ Servicios SD-WAN en centrales de proximidad
   - [1. Configuración del entorno](#1-configuración-del-entorno)
     - [1.1 Instalación y arranque de la máquina virtual en el laboratorio](#11-instalación-y-arranque-de-la-máquina-virtual-en-el-laboratorio)
     - [1.1.alt Instalación y arranque de la máquina virtual en equipo propio](#11alt-instalación-y-arranque-de-la-máquina-virtual-en-equipo-propio)
-    - [1.2 Instalación de la red privada virtual](#12-instalación-de-la-red-privada-virtual)
-    - [1.3 Definición OSM del clúster k8s y configuración de red](#13-definición-osm-del-clúster-k8s-y-configuración-de-red)
-  - [2. Interfaz gráfica de OSM](#2-interfaz-gráfica-de-osm)
-    - [2.1 Familiarización con la GUI de OSM](#21-familiarización-con-la-gui-de-osm)
-    - [2.2 Registro del repositorio de helm charts](#22-registro-del-repositorio-de-helm-charts)
-  - [2.3 Instalación de descriptores en OSM](#23-instalación-de-descriptores-en-osm)
-  - [3. Arranque del escenario de red](#3-arranque-del-escenario-de-red)
+    - [1.2 Preparación del entorno](#12-preparación-del-entorno)
+  - [2. Arranque del escenario de red](#2-arranque-del-escenario-de-red)
   - [4. Servicio de red *corpcpe*](#4-servicio-de-red-corpcpe)
-    - [4.1 Análisis de las KNFs](#41-análisis-de-las-knfs)
-    - [4.2 Análisis del NS](#42-análisis-del-ns)
-    - [4.3 (P) Imágenes vnf-access y vnf-cpe](#43-p-imágenes-vnf-access-y-vnf-cpe)
-    - [4.4 Instanciación de corpcpe1](#44-instanciación-de-corpcpe1)
-    - [4.5 (P) Conexión a las redes externas y configuración](#45-p-conexión-a-las-redes-externas-y-configuración)
+    - [4.1 (P) Imágenes vnf-access y vnf-cpe](#41-p-imágenes-vnf-access-y-vnf-cpe)
+    - [4.2 Instanciación de corpcpe1](#42-instanciación-de-corpcpe1)
+    - [4.3 (P) Análisis de las conexiones a redes externas y configuración](#43-p-análisis-de-las-conexiones-a-redes-externas-y-configuración)
   - [5. Servicio de red *sdedge*](#5-servicio-de-red-sdedge)
-    - [5.1 Onboarding de KNFs](#51-onboarding-de-knfs)
-    - [5.2 (P) Diseño y onboarding de NS](#52-p-diseño-y-onboarding-de-ns)
-    - [5.3 Imagen vnf-wan](#53-imagen-vnf-wan)
-    - [5.4 Instanciación de sdedge1](#54-instanciación-de-sdedge1)
-    - [5.5 Conexión de sdedge1 a las redes externas y configuración](#55-conexión-de-sdedge1-a-las-redes-externas-y-configuración)
-    - [5.6 Instanciación de sdedge2](#56-instanciación-de-sdedge2)
-    - [5.7 (P) Conexión de sdedge2 a las redes externas y configuración](#57-p-conexión-de-sdedge2-a-las-redes-externas-y-configuración)
+    - [5.1 Instanciación de sdedge1](#51-instanciación-de-sdedge1)
+    - [5.2 Análisis de las conexiones de sdedge1 a las redes externas](#52-análisis-de-las-conexiones-de-sdedge1-a-las-redes-externas)
+    - [5.3 Instanciación de sdedge2](#53-instanciación-de-sdedge2)
   - [6. (P) Configuración y aplicación de políticas de la SD-WAN](#6-p-configuración-y-aplicación-de-políticas-de-la-sd-wan)
-  - [7. Conclusiones](#7-conclusiones)
+  - [7. Finalización](#7-finalización)
+  - [8. Conclusiones](#8-conclusiones)
 - [Anexo I - Comandos](#anexo-i---comandos)
-- [Anexo II - Ejecución sin OSM](#anexo-ii---ejecución-sin-osm)
-- [Anexo III - Figuras](#anexo-iii---figuras)
+- [Anexo II - Figuras](#anexo-ii---figuras)
 
 # Resumen
 En esta práctica, se va a profundizar en las funciones de red virtualizadas
-(_VNF_) y su orquestación, aplicadas al caso de un servicio SD-WAN ofrecido por
+(_VNF_) aplicadas al caso de un servicio SD-WAN ofrecido por
 un proveedor de telecomunicaciones. El escenario que se va a utilizar está
 inspirado en la reconversión de las centrales de proximidad a centros de datos
 que permiten, entre otras cosas, reemplazar servicios de red ofrecidos mediante
 hardware específico y propietario por servicios de red definidos por software
 sobre hardware de propósito general. Las funciones de red que se despliegan en
-estas centrales se gestionan mediante una plataforma de orquestación como OSM o
-XOS. 
+estas centrales se gestionan habitualmente mediante una plataforma de 
+orquestación como OSM o XOS. 
 
 Un caso de virtualización de servicio de red para el que ya existen numerosas
 propuestas y soluciones es el del servicio vCPE (_Virtual Customer Premises
@@ -65,7 +50,7 @@ llevar las funciones de un equipo SD-WAN Edge a la central de proximidad.
 En concreto, partimos de un entorno SD-WAN (Figura  1.a), en el que se dispone
 de equipos SD-WAN Edge sencillos "intercalados" entre el router de la LAN de una
 sede remota y los equipos que dan salida hacia la red MPLS (MetroEthernet CE) y
-hacia el proveedor de Internet (Router de acceso a Internet). 
+hacia el proveedor de (Router de acceso a Internet). 
 
 Como muestra la Figura 1.b, el objetivo será sustituir los equipos de la sede
 corporativa, tanto el equipo SD-WAN Edge como el router de acceso a Internet y
@@ -81,23 +66,15 @@ las funciones de acceso a la red MPLS, router de acceso a Internet, y funciones
 específicas de SD-WAN Edge que permitan aplicar las políticas de reenvío del
 tráfico corporativo bien por MPLS, bien por un túnel sobre el acceso a Internet. 
 
-La plataforma de gestión y orquestación del servicio será la
-plataforma de código abierto [Open Source MANO (OSM)](https://osm.etsi.org). 
-
-
 # Entorno
 
 La Figura 2 representa el entorno en el que se va a desarrollar la práctica,
-mostrando su relación con la arquitectura NFV definida por ETSI. Como plataforma
-de gestión de VNFs se utilizará la plataforma de referencia de ETSI, Open Source
-Mano (OSM), que, como se ha visto en la teoría, comprende los dos niveles
-superiores del MANO: el NFVO para gestionar el ciclo de vida de los servicios de
-red (NS); y el VNFM para gestionar el ciclo de vida de las funciones de red
-(VNF). Como Virtualized Infrastructure Manager (VIM) se va a utilizar un clúster
+correspondiente al nivel inferior de la arquitectura NFV definida por ETSI. 
+Como Virtualized Infrastructure Manager (VIM) se va a utilizar un clúster
 de Kubernetes, que permite el despliegue de VNFs como contenedores,
 habitualmente denominados KNFs.
 
-![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
+![Arquitectura del entorno](img/helm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
 
 *Figura 2. Arquitectura del entorno*
@@ -118,21 +95,19 @@ En la Figura 3 se aprecia con más detalle la relación entre las distintas
 plataformas y repositorios involucrados en la práctica, que consistirá en el
 despliegue de un servicio de red _sdedge_ compuesto por tres VNFs
 interconectadas a través de una red virtual. Para desplegar dicho servicio se
-proporcionan los descriptores del servicio y de las VNFs que lo componen,
-escritos en YAML de acuerdo a las especificaciones de OSM. 
+proporcionan un conjunto de scripts en bash. 
 
-![Relaciones del entorno](img/osm-helm-docker.drawio.png "Relación entre
+![Relaciones del entorno](img/helm-docker.drawio.png "Relación entre
 plataformas y repositorios")
 
 *Figura 3. Relación entre plataformas y repositorios*
 
 # Escenario de la práctica
 
-La Figura 4 muestra el escenario de red que se va a desplegar en la
-práctica. Está formado por dos sedes remotas, y dos centrales de proximidad,
-gestionadas desde la misma plataforma OSM. Cada central de proximidad
-proporciona acceso a Internet y al servicio MetroEthernet ofrecido sobre una red
-MPLS. 
+La Figura 4 muestra el escenario de red que se va a desplegar en la práctica.
+Está formado por dos sedes remotas, y dos centrales de proximidad. Cada central
+de proximidad proporciona acceso a Internet y al servicio MetroEthernet ofrecido
+sobre una red MPLS. 
 
 ![Arquitectura general](img/global-arch-tun.png "arquitectura general")
 *Figura 4. Arquitectura general*
@@ -156,10 +131,10 @@ AccessNetX. Además, se simulan del mismo modo:
   - la red MplsWan
   - el segmento de red denominado Internet
   
-Los servicios de cada central de proximidad, gestionados desde la misma
-plataforma OSM, serán desplegados mediante Kubernetes. Por limitaciones del
-entorno, para la práctica se utiliza una única instancia de _microk8s_ para el
-despliegue de los servicios las dos centrales de proximidad. 
+Los servicios de cada central de proximidad serán desplegados mediante
+Kubernetes. Por limitaciones del entorno, para la práctica se utiliza una única
+instancia de _microk8s_ para el despliegue de los servicios las dos centrales de
+proximidad. 
 
 La figura muestra que las centrales de proximidad disponen de una conexión a la
 red MplsWan, emulada mediante Open vSwitch. En la red MplsWan está conectado el
@@ -181,8 +156,6 @@ permite realizar pruebas de conectividad con servidores bien conocidos como el
 
 * [VNX](https://web.dit.upm.es/vnxwiki/index.php/Main_Page), página sobre la
   herramienta VNX utilizada para especificar y construir el escenario de red
-* [OSM](https://osm.etsi.org), página de ETSI sobre el proyecto _Open Source NFV
-  Management and Orchestration (MANO) - OSM_
 * [Open vSwitch](https://www.openvswitch.org), switch software para ambientes
   Linux con soporte de OpenFlow
   
@@ -212,7 +185,7 @@ cd sdedge-ns
 A continuación, ejecute:
 
 ```
-chmod +x bin/get-osmlab-k8s
+chmod +x bin/*
 bin/get-osmlab-k8s
 ```
 
@@ -220,7 +193,7 @@ El comando `bin/get-osmlab-k8s`:
 - instala la ova que contiene la máquina virtual,
 - añade el directorio compartido en la máquina virtual, en `/home/upm/shared`.
 El objetivo es que esa carpeta compartida sea accesible tanto en el PC anfitrión
-como en la máquina virtual _RDSV-K8S_. 
+como en la máquina virtual _RDSV-K8S-2024-v1_. 
 
 Arranque la máquina virtual, abra un terminal, y compruebe que puede acceder a 
 la carpeta compartida `~/shared` en la que ha descargado el repositorio de la 
@@ -242,113 +215,32 @@ git clone https://github.com/educaredes/sdedge-ns.git
 cd sdedge-ns
 ```
 
-### 1.2 Instalación de la red privada virtual
+### 1.2 Preparación del entorno
 
-**El resto de la práctica se realiza sobre la máquina virtual. Por tanto, una 
-vez arrancada la máquina virtual, se recomienda maximizar la ventana de 
-VirtualBox.** 
+Ejecute los comandos:
 
-Utilizando la \<letra\> asignada por los profesores, instale la red privada
-virtual con el servidor OSM mediante:
-
-```
+```shell
 cd ~/shared/sdedge-ns/bin
-./rdsv-start-tun <letra>  # Si realiza la práctica desde el laboratorio
+./prepare-k8slab   # creates namespace and network resources
 ```
 
-```
-cd ~/shared/sdedge-ns/bin
-./rdsv-start-tun <letra> labtun5.dit.upm.es  # Si realiza la práctica desde equipo propio
-```
+Cierre la ventana de terminal y vuelva a abrirla o aplique los cambios
+necesarios mediante:
 
-Compruebe que se ha establecido el túnel haciendo ping al servidor OSM:
-
-```
-ping 10.11.13.1
+```shell
+source ~/.bashrc
 ```
 
-### 1.3 Definición OSM del clúster k8s y configuración de red 
+Compruebe que el valor de la variable de entorno SDWNS se ha definido
+correctamente con:
 
-Configure el entorno para acceder a OSM con su nombre de usuario y para
-registrar su cluster k8s mediante:
-
-```
-cd ~/shared/sdedge-ns/bin
-./rdsv-config-osmlab <letter> 
-```
-
-A continuación, **cierre el terminal** y abra uno nuevo.
-
-En el nuevo terminal, obtenga los valores asignados a las diferentes variables
-configuradas para acceder a OSM (OSM_*) y el identificador del _namespace_ de
-K8S creado para OSM (OSMNS):
-
-```
-echo "-- OSM_USER=$OSM_USER"
-echo "-- OSM_PASSWORD=$OSM_PASSWORD"
-echo "-- OSM_PROJECT=$OSM_PROJECT"
-echo "-- OSM_HOSTNAME=$OSM_HOSTNAME"
-echo "-- OSMNS=$OSMNS"
+```shell
+echo $SDWNS
+# debe mostrar el valor
+# 'rdsv'
 ```
 
-## 2. Interfaz gráfica de OSM
-
-### 2.1 Familiarización con la GUI de OSM
-
-Acceda a OSM desde la máquina virtual mediante:
-
-```
-# Acceso a OSM desde la máquina virtual
-firefox 10.11.13.1 &
-```
-
-Familiarícese con las distintas opciones del menú, especialmente:
-- _Packages_: gestión de las plantillas de servicios de red (NS Packages)
-y VNFs (VNF Packages). 
-- _Instances_: gestión de la instancias de los servicios desplegados
-- _K8s_: gestión del registro de clústeres y repositorios k8s
-
-### 2.2 Registro del repositorio de helm charts 
-
-Para implementar las funciones de red virtualizadas se usarán _helm charts_, que
-empaquetan todos los recursos necesarios para el despliegue de una aplicación en
-un clúster de K8S. A través de la GUI registraremos el repositorio de _helm
-charts_ que utilizaremos en la práctica, alojado en Github Pages.
-
-Acceda a la opción de menú _K8s Repos_, haga clic sobre el botón
- _Add K8s Repository_ y rellene los campos con los valores:
-- Name: `sdedge-ns-repo`
-- Type: "Helm Chart" 
-- URL: `https://educaredes.github.io/sdedge-ns` (NO DEBE TERMINAR EN "/")
-- Description: _una descripción textual del repositorio_
-
-![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
-
-*Figura 5. Configuración del repositorio de helm charts*
-
-En la carpeta compartida `$HOME/shared/sdedge-ns/helm` puede encontrar la
-definición de los _helm charts_ que se usarán en esta práctica.
-
-## 2.3 Instalación de descriptores en OSM
-
-Desde la maquina virtual, acceda gráficamente al directorio 
-`$HOME/shared/sdedge-ns/pck`. Realice el proceso de instalación de los 
-descriptores de KNFs y del servicio de red (onboarding):
-- Acceda al menu de OSM Packages->VNF packages y arrastre los ficheros
-`accessknf_vnfd.tar.gz` y `cpeknf_vnfd.tar.gz`. 
-- Acceda al menu de OSM Packages->NS packages y arrastre el fichero 
-`corpcpe_nsd.tar.gz`.
-
-Alternativamente, puede realizar la instalación de descriptores desde la línea 
-de comandos, usando el cliente de osm ya instalado en la máquina virtual:
-
-```
-osm vnfd-create $HOME/shared/sdedge-ns/pck/accessknf_vnfd.tar.gz
-osm vnfd-create $HOME/shared/sdedge-ns/pck/cpeknf_vnfd.tar.gz
-osm nsd-create $HOME/shared/sdedge-ns/pck/corpcpe_nsd.tar.gz
-```
-
-## 3. Arranque del escenario de red 
+## 2. Arranque del escenario de red 
 
 A continuación se va a arrancar el escenario de red que comprende las sedes
 remotas, los routers _isp1_ e _isp2_ y los servidores _s1_ y voip-gw_. Primero
@@ -364,8 +256,8 @@ _container network interface_ (CNI) para Kubernetes.
 Compruebe que están creados los correspondientes _Network
 Attachment Definitions_ de _Multus_ ejecutando el comando:
 
-```
-kubectl get -n $OSMNS network-attachment-definitions
+```shell
+kubectl get -n $SDWNS network-attachment-definitions
 ```
 
 A continuación arranque el escenario con:
@@ -383,15 +275,15 @@ También puede comprobar desde s1 el acceso a 8.8.8.8.
 ## 4. Servicio de red *corpcpe*
 
 Comenzaremos a continuación analizando el servicio de acceso a Internet
-corporativo *corpcpe*. La Figura 6 muestra los detalles de ese servicio. En trazo
-punteado se han señalado algunos componentes que se encuentra configurados,
-pero que no forman parte de este servicio, sino del servicio _sdedge_ que se
-verá más adelante, y que será el que incluya el acceso a la red MPLS para la
-comunicación entre sedes de la red corporativa. 
+corporativo *corpcpe*. La Figura 5 muestra los detalles de ese servicio. En
+trazo punteado se han señalado algunos componentes que se encuentran
+configurados, pero que no forman parte de este servicio, sino del servicio
+_sdedge_ que se verá más adelante, y que será el que incluya el acceso a la red
+MPLS para la comunicación entre sedes de la red corporativa. 
 
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
 
-*Figura 6. Servicio de red corpcpe*
+*Figura 5. Servicio de red corpcpe*
 
 Este servicio establecerá una _SFC_ (_service function chain_ o "cadena de
 funciones del servicio") para enviar el tráfico que proviene del router
@@ -406,21 +298,7 @@ hacia su destino en la red corporativa, pasando por VNF:cpe y VNF:access. Será
 necesario configurar en el servicio el prefijo de red utilizado por la sede
 remota para que VNF:cpe realice correctamente el encaminamiento.
 
-### 4.1 Análisis de las KNFs
-
-Acceda al descriptor de las KNFs _access_ y _cpe_ gráfica y textualmente para
-familiarizarse con ellas. Identifique la información sobre los _helm charts_ y
-observe que cada KNF tiene un único "connection-point", que se corresponde con
-la conexión que tendrá con otras KNFs a través de Kubernetes. Como se verá más
-adelante, las conexiones a las redes externas se configurarán accediendo
-directamente a los contenedores mediante _kubectl_. 
-
-### 4.2 Análisis del NS 
-
-Acceda gráfica y textualmente al descriptor del servicio de red _corpcpe_ para
-familiarizarse con el servicio.
-
-### 4.3 (P) Imágenes vnf-access y vnf-cpe
+### 4.1 (P) Imágenes vnf-access y vnf-cpe
 Las imágenes Docker que se usan por cada una de las KNFs ya se encuentran en
 Docker Hub, en concreto en el repositorio
 https://hub.docker.com/search?q=educaredes. Se van a analizar los ficheros
@@ -439,54 +317,36 @@ _img/vnf-access_ y _vnf-cpe_. Observe que cada una de ellas contiene:
 creación de vnf-access y de vnf-cpe (líneas FROM), y qué paquetes adicionales se
 están instalando en cada caso. 
 
-### 4.4 Instanciación de corpcpe1
-Cree una instancia del servicio con nombre *_corpcpe1_*, que dará acceso a
-Internet a la sede 1. Para ello, utilice:
+### 4.2 Instanciación de corpcpe1
+Cree una instancia del servicio que dará acceso a Internet a la sede 1.
+Para ello, utilice:
 
+```shell
+cd ~/shared/sdedge-ns
+./cpe1.sh
 ```
-export NSID1=$(osm ns-create --ns_name corpcpe1 --nsd_name corpcpe \
---vim_account dummy_vim)
-echo $NSID1
-```
-
-Recuerde que mediante el comando `watch` puede visualizar el estado de la
-instancia del servicio: 
-
-```
-watch osm ns-list
-```
-
-Espere a que alcance el estado _READY_ y salga con `Ctrl+C`.
-
-Si se produce algún error, puede borrar la instancia del servicio con el 
-comando:
-
-```
-osm ns-delete $NSID1
-```
-Y a continuación lanzar de nuevo la creación de una nueva instancia.
 
 Una vez arrancada la instancia del servicio puede acceder a los terminales de
 las KNFs usando el comando:
 
 ```shell
 cd ~/shared/sdedge-ns
-bin/sdw-knf-consoles open $NSID1
+bin/sdw-knf-consoles open 1
 ```
 
 A continuación, realice pruebas de conectividad básicas con ping y traceroute
 entre las dos KNFs para comprobar que hay conectividad, a través de las
 direcciones de la interfaz `eth0`.
 
-### 4.5 (P) Conexión a las redes externas y configuración
+### 4.3 (P) Análisis de las conexiones a redes externas y configuración
 
-A continuación se van a realizar una serie de configuraciones iniciales del
-servicio instanciado. Aunque está previsto que este tipo de configuraciones se
-realicen directamente a través de la plataforma de orquestación, en este caso,
-por limitaciones del escenario de la práctica, se van a realizar accediendo a
-los contenedores mediante _kubectl_. El fichero _cpe1.sh_, junto con los
-ficheros *osm_corpcpe_start.sh* y *start_corpcpe.sh*, contienen los comandos
-necesarios para realizar las configuraciones necesarias del servicio. 
+A continuación se van a analizar las configuraciones iniciales del servicio
+instanciado. Aunque está previsto que este tipo de configuraciones se realicen
+directamente a través de la plataforma de orquestación, en este caso, se han
+realizado accediendo a los contenedores mediante _kubectl_. El fichero
+_cpe1.sh_, junto con los ficheros *k8s_corpcpe_start.sh* y *start_corpcpe.sh*,
+contienen los comandos necesarios para realizar las configuraciones necesarias
+del servicio. 
 
 Acceda al contenido del fichero:
 
@@ -494,7 +354,7 @@ Acceda al contenido del fichero:
 cat cpe1.sh
 ```
 
-Acceda también al contenido de los ficheros *osm_corpcpe_start.sh* y
+Acceda también al contenido de los ficheros *k8s_corpcpe_start.sh* y
 *start_corpcpe.sh* que se invocan desde _cpe1.sh_.
 
 :point_right: A partir del contenido del script _cpe1.sh_ y los demás scripts
@@ -502,13 +362,7 @@ que se llaman desde este, analice y describa resumidamente los pasos que se
 están siguiendo para realizar la conexión a las redes externas y la
 configuración del servicio.
 
-A continuación aplique la configuración:
-
-```shell
-./cpe1.sh
-```
-
-Y compruebe el funcionamiento del servicio, siguiendo los siguientes pasos para
+Compruebe el funcionamiento del servicio, siguiendo los siguientes pasos para
 probar la interconectividad entre h1 y s1:
 
 * Desde la consola del host arranque una captura del tráfico en s1 con:
@@ -540,171 +394,71 @@ traceroute -In 8.8.8.8
 :point_right: Explique los resultados de los distintos traceroute, indicando si
 se corresponden con lo esperado.
 
+A continuación desinstale las KNFs mediante el comando:
 ```shell
-osm ns-delete $NSID1
+uninstall.sh
 ```
 
 ## 5. Servicio de red *sdedge*
-A partir del servicio de red anterior, crearemos una nueva VNF y un nuevo NS
-para ofrecer mediante el entorno OSM el servicio *sdedge*, que está preparado
-para incluir la funcionalidad SD-WAN. La Figura 7 muestra los componentes
-adicionales del servicio.
+El servicio de red anterior se va a extender a continuación con una nueva KNF
+con el objetivo de crear un servicio _sdedge_, que está preparado para incluir
+la funcionalidad SD-WAN. La Figura 6 muestra los componentes adicionales de ese
+servicio.
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
 
-*Figura 7. Servicio de red sdedge*
+*Figura 6. Servicio de red sdedge* 
 
-### 5.1 Onboarding de KNFs
+### 5.1 Instanciación de sdedge1
 
-Realice el _onboarding_ de la KNF _wanknf_ mediante su descriptor
-*wanknf_vnfd.tar.gz*, que puede encontrar en la carpeta pck.
+Cree una instancia del servicio que dará acceso a Internet a la sede 1 y acceso
+a la red MPLS para la comunicación intra-corporativa, permitiendo conectar con
+el equipo _voip-gw_. Para ello, utilice:
 
+```shell
+./sdedge1.sh 
 ```
-osm vnfd-create $HOME/shared/sdedge-ns/pck/wanknf_vnfd.tar.gz
-```
-
-Acceda a su descriptor gráfica y textualmente, identificando la información
-sobre el _helm chart_. 
-
-### 5.2 (P) Diseño y onboarding de NS
-A continuación, a través de OSM, modifique el descriptor del servicio de red
-_corpcpe_ según se indica a continuación: (*Nota importante*: no olvide pulsar
-el botón _Update_ para que se guarden los cambios una vez modificado el texto.
-Si se cambia de solapa en el navegador sin guardar los cambios, estos se
-perderán. Además, no utilice tabuladores para el sangrado del texto, use
-espacios únicamente).
-
-* Cambie los campos _id_ y _name_ a _sdedge_
-* Cambie el valor de _designer_ y ponga su nombre y apellidos
-* Modifique la descripción para hacer referencia al servicio SD-WAN
-* Añada la KNF:wan como tercera KNF, duplicando el bloque de la KNF:cpe y
-  reemplazando _cpe_ por _wan_, como sigue:
-  
-```
-      - id: wan
-        virtual-link-connectivity:
-          - constituent-cpd-id:
-              - constituent-base-element-id: wan
-                constituent-cpd-id: mgmt-ext
-            virtual-link-profile-id: mgmtnet
-        vnfd-id: wanknf
-```
-* En la sección _vnfd-id:_, añada al final:
-
-```
-         - wanknf
-```
-
-Puede utilizar los botones de "Show Graph" para visualizar el resultado. Deberá
-mostrar las tres VNFs interconectadas entre sí.
-
-:point_right: Haga una foto o una captura de pantalla de la visualización
-gráfica del servicio de red e inclúyala en la memoria de resultados de la
-práctica.
-
-### 5.3 Imagen vnf-wan
-Desde el navegador de archivos, acceda a la
-carpeta `/home/upm/shared/sdedge-ns/img/vnf-wan` y analice su contenido.
-
-:point_right: Identifique el nombre de la imagen estándar de partida para la
-creación de la imagen vnf-wan (línea FROM), y qué paquetes adicionales se están
-instalando. 
-
-### 5.4 Instanciación de sdedge1
-
-Cree una instancia del servicio con nombre *_sdedge1_*, que dará acceso a
-Internet a la sede 1 y acceso a la red MPLS para la comunicación
-intra-corporativa, permitiendo conectar con el equipo _voip-gw_. Para ello,
-utilice:
-
-```
-export NSID1=$(osm ns-create --ns_name sdedge1 --nsd_name sdedge \
- --vim_account dummy_vim)
-echo $NSID1
-```
-
-Usando:
-
-```
-watch osm ns-list
-```
-
-espere a que el servicio alcance el estado _READY_.
 
 A continuación, acceda a los terminales de las KNFs usando el comando:
 
 ```shell
-bin/sdw-knf-consoles open $NSID1
+bin/sdw-knf-consoles open 1
 ```
 
 Y realice pruebas de conectividad básicas con ping y traceroute entre las tres
 KNFs para comprobar que hay conectividad, a través de las direcciones de la
 interfaz `eth0`.
 
-### 5.5 Conexión de sdedge1 a las redes externas y configuración
+### 5.2 Análisis de las conexiones de sdedge1 a las redes externas
 
-A continuación se van a realizar las configuraciones iniciales del servicio
-instanciado, accediendo a los contenedores mediante _kubectl_, como se explicó
-anteriormente. El fichero _sdedge1_, junto con los ficheros
-*osm_sdedge_start.sh* y *sdedge_start.sh*, contienen los comandos necesarios
-para realizar las configuraciones necesarias del servicio. 
+El fichero _sdedge1_, junto con los ficheros *k8s_sdedge_start.sh* y
+*start_sdedge.sh*, contiene los comandos necesarios para realizar las
+configuraciones necesarias del servicio, accediendo a los contenedores mediante
+_kubectl_, como se explicó anteriormente.
 
 :point_right: Acceda al contenido de esos tres ficheros. Compare
-*osm_sdedge_start.sh* con *osm_sdedge_start.sh*:
+*k8s_sdedge_start.sh* con *k8s_sdedge_start.sh*:
 
 ```shell
 diff osm_corpcpe_start.sh osm_sdedge_start.sh
 ```
 
 Y explique las diferencias observadas. Acceda también al contenido del fichero
-*start_sdedge.sh* que se invoca desde *osm_sdedge_start.sh*.
+*start_sdedge.sh* que se invoca desde *k8s_sdedge_start.sh*.
 
 :point_right: A partir del contenido de los distintos scripts, analice y
 describa resumidamente los pasos que se están siguiendo para realizar la
 conexión a las redes externas y la configuración del servicio, comparándolo con
 el servicio _corpcpe_.
 
-A continuación aplique la configuración:
 
-```shell
-./sdedge1.sh 
-```
-
-Y compruebe el funcionamiento del servicio, verificando que sigue teniendo
+Compruebe el funcionamiento del servicio, verificando que sigue teniendo
 acceso a Internet, y que ahora tiene acceso desde h1 y t1 al equipo voip-gw.
 
-### 5.6 Instanciación de sdedge2
-Cree a continuación una nueva instancia del servicio _sdedge_ de nombre
-*_sdedge2_*. Esta instancia permitirá dar acceso a la sede 2 tanto a Internet
-como a la red MPLS. Para ello, utilice:
-
-```
-export NSID2=$(osm ns-create --ns_name sdedge2 --nsd_name sdedge \
---vim_account dummy_vim)
-echo $NSID2
-```
-
-Usando:
-
-```
-watch osm ns-list
-```
-
-espere a que el servicio alcance el estado _READY_.
-
-Acceda a los terminales de las VNFs usando el comando:
-
-```shell
-bin/sdw-knf-consoles open $NSID2
-```
-
-Y realice pruebas de conectividad básicas con ping y traceroute entre las tres
-KNFs para comprobar que hay conectividad, a través de las direcciones de la
-interfaz `eth0`. Observe que las direcciones asignadas son diferentes de las
-asignadas a las KNFs de _sdedge1_. 
-
-### 5.7 (P) Conexión de sdedge2 a las redes externas y configuración
-Cree una copia del sdedge1.sh:
+### 5.3 Instanciación de sdedge2
+Se va a crear una nueva instancia del servicio _sdedge_ mediante un nuevo
+fichero `sdedge2.sh`. Esta instancia permitirá dar acceso a la sede 2 tanto a
+Internet como a la red MPLS. Para ello cree una copia del sdedge1.sh:
 
 ```shell
 cp sdedge1.sh sdedge2.sh
@@ -717,11 +471,16 @@ las redes externas y configurar las KNFs del servicio _sdedge2_.
 :point_right: Deberá entregar el script _sdedge2_ como parte del resultado de la
 práctica.
 
-A continuación aplique la configuración:
+Acceda a los terminales de las VNFs usando el comando:
 
 ```shell
-./sdedge2.sh 
+bin/sdw-knf-consoles open 2
 ```
+
+Y realice pruebas de conectividad básicas con ping y traceroute entre las tres
+KNFs para comprobar que hay conectividad, a través de las direcciones de la
+interfaz `eth0`. Observe que las direcciones asignadas son diferentes de las
+asignadas a las KNFs de _sdedge1_. 
 
 Para probar el servicio, compruebe que ahora tiene acceso desde h2 y t2 a
 Internet y al equipo voip-gw. Además, deberá realizar las siguientes pruebas de
@@ -759,15 +518,15 @@ entre los hosts h1 y h2 a través del túnel VXLAN inter-sedes sobre Internet,
 mientras que el tráfico entre los "teléfonos IP" t1 y t2 se continuará enviando
 a través de la red MPLS. 
 
-La Figura 8 muestra resaltados los componentes configurados para el servicio
+La Figura 7 muestra resaltados los componentes configurados para el servicio
 SD-WAN.
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
 
-*Figura 8. Servicio de red sdedge configurado para SD-WAN*
+*Figura 7. Servicio de red sdedge configurado para SD-WAN*
 
 Para realizar las configuraciones de SD-WAN sobre el servicio de red _sdedge_ se
-utiliza el script _sdwan1.sh_ junto a los scripts *osm_sdwan_start.sh* y
+utiliza el script _sdwan1.sh_ junto a los scripts *k8s_sdwan_start.sh* y
 *start_sdwan.sh*. Acceda al contenido de esos ficheros, así como al contenido de
 la carpeta _json_.
 
@@ -809,7 +568,14 @@ adjuntarla como resultado de la práctica.
 
 :point_right: Analice el tráfico capturado y explique las direcciones MAC e IP
 que se ven en los distintos niveles del tráfico, teniendo en cuenta que se ha
-encapsulado por un túnel VXLAN.
+encapsulado por un túnel VXLAN. Para que wireshark decodifique correctamente las 
+cabeceras VXLAN, pinche sobre un paquete y use la opción de menú 
+"Analyze->Decode As...", y luego haga doble click en la columna "Current" y
+seleccione "VXLAN". 
+
+![Wireshark decode as](img/wireshark-decode-as.png "wireshark")
+
+*Figura 8. Selección de decodificación de paquetes en Wireshark*
 
 * Desde t1 lance un ping a t2 (dir. IP 10.20.2.200). El tráfico no debe pasar
   por isp1-isp2, se debe encaminar por MPLS.
@@ -817,37 +583,31 @@ encapsulado por un túnel VXLAN.
 A continuación, desde h1 y desde t1 compruebe el camino seguido por el tráfico a
 otros sistemas del escenario y a Internet utilizando traceroute.
 
-## 7. Conclusiones
+
+## 7. Finalización
+Para liberar los despliegues realizados en el clúster, utilice:
+
+```shell
+uninstall.sh
+```
+
+## 8. Conclusiones
 :point_right: Incluya en la entrega un apartado de conclusiones con su
 valoración de la práctica, incluyendo los posibles problemas que haya encontrado
 y sus sugerencias. 
 
 # Anexo I - Comandos 
 
-Muestra los descriptores registrados:
+Si $PING contiene el identificador del pod, ejecuta un `<comando>` en un pod:
 
 ```
-osm nsd-list
-osm vnfd-list
-```
-
-Muestra las vnf y los ns activos:
-
-```
-osm ns-list
-osm vnf-list
-```
-
-Ejecuta un `<comando>` en un pod:
-
-```
-kubectl  -n $OSMNS exec -it $PING -- <comando>
+kubectl  -n $SDWNS exec -it $PING -- <comando>
 ```
 
 Abre una shell en un pod:
 
 ```
-kubectl  -n $OSMNS exec -it $PING -- /bin/sh
+kubectl  -n $SDWNS exec -it $PING -- /bin/sh
 ```
 
 Arranca consolas de KNFs:
@@ -856,24 +616,7 @@ Arranca consolas de KNFs:
 bin/sdw-knf-consoles open <ns_id>
 ```
 
-# Anexo II - Ejecución sin OSM
-
-El laboratorio se puede ejecutar sin OSM MANO, utilizando helm:
-
-- Descargue y descomprima el repositorio [sdedge-ns-main](https://github.com/educaredes/sdedge-ns/archive/refs/heads/main.zip)
-- Abra un terminal y vaya a la carpeta descomprimida `cd sdege-ns-main`
-- Definir el espacio de nombres que se utilizará:
-
-```
-export OSMNS=rdsv
-```
-
-- asegúrese de que los scripts `cpeX.sh`, `sdedgeX.sh` y `sdwanX.sh` llaman a los scripts `k8s_*`
-en lugar de los scripts `osm_*`
-
-- use `uninstall.sh` cuando termine para desinstalar los despliegues realizados en k8s
-
-# Anexo III - Figuras
+# Anexo II - Figuras
 
 ![Visión del servicio SD-WAN](img/summary.png "summary")
 
@@ -881,14 +624,14 @@ en lugar de los scripts `osm_*`
 
 ---
 
-![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
+![Arquitectura del entorno](img/helm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
 
 *Figura 2. Arquitectura del entorno*
 
 ---
 
-![Relaciones del entorno](img/osm-helm-docker.drawio.png "Relación entre
+![Relaciones del entorno](img/helm-docker.drawio.png "Relación entre
 plataformas y repositorios")
 
 *Figura 3. Relación entre plataformas y repositorios*
@@ -900,27 +643,21 @@ plataformas y repositorios")
 
 ---
 
-![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
-
-*Figura 5. Configuración del repositorio de helm charts*
-
----
-
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
 
-*Figura 6. Servicio de red corpcpe*
+*Figura 5. Servicio de red corpcpe*
 
 ---
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
 
-*Figura 7. Servicio de red sdedge*
+*Figura 6. Servicio de red sdedge*
 
 ---
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
 
-*Figura 8. Servicio de red sdedge configurado para SD-WAN*
+*Figura 7. Servicio de red sdedge configurado para SD-WAN*
 
 ---
 
