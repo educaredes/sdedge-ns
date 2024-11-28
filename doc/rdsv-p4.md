@@ -220,7 +220,7 @@ cd sdedge-ns
 Ejecute los comandos:
 
 ```shell
-cd ~/shared/bin
+cd ~/shared/sdedge-ns/bin
 ./prepare-k8slab   # creates namespace and network resources
 ```
 
@@ -228,7 +228,7 @@ Cierre la ventana de terminal y vuelva a abrirla o aplique los cambios
 necesarios mediante:
 
 ```shell
-source ~/.basrhc
+source ~/.bashrc
 ```
 
 Compruebe que el valor de la variable de entorno SDWNS se ha definido
@@ -451,13 +451,8 @@ describa resumidamente los pasos que se están siguiendo para realizar la
 conexión a las redes externas y la configuración del servicio, comparándolo con
 el servicio _corpcpe_.
 
-A continuación aplique la configuración:
 
-```shell
-./sdedge1.sh 
-```
-
-Y compruebe el funcionamiento del servicio, verificando que sigue teniendo
+Compruebe el funcionamiento del servicio, verificando que sigue teniendo
 acceso a Internet, y que ahora tiene acceso desde h1 y t1 al equipo voip-gw.
 
 ### 5.3 Instanciación de sdedge2
