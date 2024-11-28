@@ -21,10 +21,10 @@ Servicios SD-WAN en centrales de proximidad
     - [5.2 Análisis de las conexiones de sdedge1 a las redes externas](#52-análisis-de-las-conexiones-de-sdedge1-a-las-redes-externas)
     - [5.3 Instanciación de sdedge2](#53-instanciación-de-sdedge2)
   - [6. (P) Configuración y aplicación de políticas de la SD-WAN](#6-p-configuración-y-aplicación-de-políticas-de-la-sd-wan)
-  - [7. Conclusiones](#7-conclusiones)
+  - [7. Finalización](#7-finalización)
+  - [8. Conclusiones](#8-conclusiones)
 - [Anexo I - Comandos](#anexo-i---comandos)
-- [Anexo II - Ejecución sin OSM](#anexo-ii---ejecución-sin-osm)
-- [Anexo III - Figuras](#anexo-iii---figuras)
+- [Anexo II - Figuras](#anexo-ii---figuras)
 
 # Resumen
 En esta práctica, se va a profundizar en las funciones de red virtualizadas
@@ -68,7 +68,6 @@ tráfico corporativo bien por MPLS, bien por un túnel sobre el acceso a Interne
 
 Como ya se ha mencionado,  de gestión y orquestación del servicio será la
 plataforma de código abierto [Open Source MANO (OSM)](https://osm.etsi.org). 
-
 
 # Entorno
 
@@ -282,7 +281,7 @@ También puede comprobar desde s1 el acceso a 8.8.8.8.
 ## 4. Servicio de red *corpcpe*
 
 Comenzaremos a continuación analizando el servicio de acceso a Internet
-corporativo *corpcpe*. La Figura 6 muestra los detalles de ese servicio. En trazo
+corporativo *corpcpe*. La Figura 5 muestra los detalles de ese servicio. En trazo
 punteado se han señalado algunos componentes que se encuentra configurados,
 pero que no forman parte de este servicio, sino del servicio _sdedge_ que se
 verá más adelante, y que será el que incluya el acceso a la red MPLS para la
@@ -290,7 +289,7 @@ comunicación entre sedes de la red corporativa.
 
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
 
-*Figura 6. Servicio de red corpcpe*
+*Figura 5. Servicio de red corpcpe*
 
 Este servicio establecerá una _SFC_ (_service function chain_ o "cadena de
 funciones del servicio") para enviar el tráfico que proviene del router
@@ -407,14 +406,20 @@ uninstall.sh
 ```
 
 ## 5. Servicio de red *sdedge*
-El servicio de red anterior se va a extender a continuación con una nueva KNF. 
+El servicio de red anterior se va a extender a continuación con una nueva KNF
+con el objetivo de crear un servicio _sdedge_, que está preparado para incluir
+la funcionalidad SD-WAN. La Figura 6 muestra los componentes adicionales de ese
+servicio.
+
+![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
+
+*Figura 6. Servicio de red sdedge* 
 
 ### 5.1 Instanciación de sdedge1
 
-Cree una instancia del servicio que dará acceso a
-Internet a la sede 1 y acceso a la red MPLS para la comunicación
-intra-corporativa, permitiendo conectar con el equipo _voip-gw_. Para ello,
-utilice:
+Cree una instancia del servicio que dará acceso a Internet a la sede 1 y acceso
+a la red MPLS para la comunicación intra-corporativa, permitiendo conectar con
+el equipo _voip-gw_. Para ello, utilice:
 
 ```shell
 ./sdedge1.sh 
@@ -582,14 +587,22 @@ encapsulado por un túnel VXLAN.
 A continuación, desde h1 y desde t1 compruebe el camino seguido por el tráfico a
 otros sistemas del escenario y a Internet utilizando traceroute.
 
-## 7. Conclusiones
+
+## 7. Finalización
+Para liberar los despliegues realizados en el clúster, utilice:
+
+```shell
+uninstall.sh
+```
+
+## 8. Conclusiones
 :point_right: Incluya en la entrega un apartado de conclusiones con su
 valoración de la práctica, incluyendo los posibles problemas que haya encontrado
 y sus sugerencias. 
 
 # Anexo I - Comandos 
 
-Ejecuta un `<comando>` en un pod:
+Si $PING contiene el identificador del pod, ejecuta un `<comando>` en un pod:
 
 ```
 kubectl  -n $SDWNS exec -it $PING -- <comando>
@@ -607,24 +620,7 @@ Arranca consolas de KNFs:
 bin/sdw-knf-consoles open <ns_id>
 ```
 
-# Anexo II - Ejecución sin OSM
-
-El laboratorio se ejecutar utilizando helm:
-
-- Descargue y descomprima el repositorio [sdedge-ns-main](https://github.com/educaredes/sdedge-ns/archive/refs/heads/main.zip)
-- Abra un terminal y vaya a la carpeta descomprimida `cd sdege-ns-main`
-- Definir el espacio de nombres que se utilizará:
-
-```
-export SDWNS=rdsv
-```
-
-- asegúrese de que los scripts `cpeX.sh`, `sdedgeX.sh` y `sdwanX.sh` llaman a los scripts `k8s_*`
-en lugar de los scripts `osm_*`
-
-- use `uninstall.sh` cuando termine para desinstalar los despliegues realizados en k8s
-
-# Anexo III - Figuras
+# Anexo II - Figuras
 
 ![Visión del servicio SD-WAN](img/summary.png "summary")
 
@@ -632,14 +628,14 @@ en lugar de los scripts `osm_*`
 
 ---
 
-![Arquitectura del entorno](img/osm-k8s-ref-arch.drawio.png "Arquitectura del
+![Arquitectura del entorno](img/helm-k8s-ref-arch.drawio.png "Arquitectura del
 entorno")
 
 *Figura 2. Arquitectura del entorno*
 
 ---
 
-![Relaciones del entorno](img/osm-helm-docker.drawio.png "Relación entre
+![Relaciones del entorno](img/helm-docker.drawio.png "Relación entre
 plataformas y repositorios")
 
 *Figura 3. Relación entre plataformas y repositorios*
@@ -651,27 +647,21 @@ plataformas y repositorios")
 
 ---
 
-![sdedge-ns-repository-details](img/sdedge-ns-repository.png)
-
-*Figura 5. Configuración del repositorio de helm charts*
-
----
-
 ![Servicio de red corpcpe](img/corpcpe.png "corpcpe")
 
-*Figura 6. Servicio de red corpcpe*
+*Figura 5. Servicio de red corpcpe*
 
 ---
 
 ![Servicio de red sdedge](img/sdedge.drawio.png "sdedge")
 
-*Figura 7. Servicio de red sdedge*
+*Figura 6. Servicio de red sdedge*
 
 ---
 
 ![Servicio de red sdwan](img/sdwan.drawio.png "sdwan")
 
-*Figura 8. Servicio de red sdedge configurado para SD-WAN*
+*Figura 7. Servicio de red sdedge configurado para SD-WAN*
 
 ---
 
