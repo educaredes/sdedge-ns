@@ -368,7 +368,7 @@ probar la interconectividad entre h1 y s1:
 * Desde la consola del host arranque una captura del tráfico en s1 con:
 
 ```shell
-wireshark -ki s1-e1
+wireshark -ki s1-e1 &
 ```
  
 * Desde h1, pruebe la conectividad con s1 mediante ping 10.100.3.3. 
@@ -440,7 +440,7 @@ _kubectl_, como se explicó anteriormente.
 *k8s_sdedge_start.sh* con *k8s_sdedge_start.sh*:
 
 ```shell
-diff osm_corpcpe_start.sh osm_sdedge_start.sh
+diff k8s_corpcpe_start.sh k8s_sdedge_start.sh
 ```
 
 Y explique las diferencias observadas. Acceda también al contenido del fichero
