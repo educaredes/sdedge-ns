@@ -6,8 +6,5 @@ export NETNUM=1 # used to select external networks
 
 export REMOTESITE="10.100.2.1"
 
-# OSM SECTION
-#./osm_sdwan_start.sh
-
 # HELM SECTION
 ./k8s_sdwan_start.sh

@@ -19,8 +19,5 @@ export VCPEPUBIP="10.100.1.1"
 # VCPEGW: the default gateway for the vcpe
 export VCPEGW="10.100.1.254"
 
-# OSM SECTION
-#./osm_sdedge_start.sh
-
 # HELM SECTION
 ./k8s_sdedge_start.sh
