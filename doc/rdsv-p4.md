@@ -50,7 +50,7 @@ llevar las funciones de un equipo SD-WAN Edge a la central de proximidad.
 En concreto, partimos de un entorno SD-WAN (Figura  1.a), en el que se dispone
 de equipos SD-WAN Edge sencillos "intercalados" entre el router de la LAN de una
 sede remota y los equipos que dan salida hacia la red MPLS (MetroEthernet CE) y
-hacia el proveedor de Internet (Router de acceso a Internet). 
+hacia el proveedor de (Router de acceso a Internet). 
 
 Como muestra la Figura 1.b, el objetivo será sustituir los equipos de la sede
 corporativa, tanto el equipo SD-WAN Edge como el router de acceso a Internet y
@@ -66,18 +66,11 @@ las funciones de acceso a la red MPLS, router de acceso a Internet, y funciones
 específicas de SD-WAN Edge que permitan aplicar las políticas de reenvío del
 tráfico corporativo bien por MPLS, bien por un túnel sobre el acceso a Internet. 
 
-Como ya se ha mencionado,  de gestión y orquestación del servicio será la
-plataforma de código abierto [Open Source MANO (OSM)](https://osm.etsi.org). 
-
 # Entorno
 
 La Figura 2 representa el entorno en el que se va a desarrollar la práctica,
-mostrando su relación con la arquitectura NFV definida por ETSI. Como plataforma
-de gestión de VNFs se utilizará la plataforma de referencia de ETSI, Open Source
-Mano (OSM), que, como se ha visto en la teoría, comprende los dos niveles
-superiores del MANO: el NFVO para gestionar el ciclo de vida de los servicios de
-red (NS); y el VNFM para gestionar el ciclo de vida de las funciones de red
-(VNF). Como Virtualized Infrastructure Manager (VIM) se va a utilizar un clúster
+correspondiente al nivel inferior de la arquitectura NFV definida por ETSI. 
+Como Virtualized Infrastructure Manager (VIM) se va a utilizar un clúster
 de Kubernetes, que permite el despliegue de VNFs como contenedores,
 habitualmente denominados KNFs.
 
@@ -138,9 +131,10 @@ AccessNetX. Además, se simulan del mismo modo:
   - la red MplsWan
   - el segmento de red denominado Internet
   
-Los servicios de cada central de proximidad serán desplegados mediante Kubernetes. Por limitaciones del
-entorno, para la práctica se utiliza una única instancia de _microk8s_ para el
-despliegue de los servicios las dos centrales de proximidad. 
+Los servicios de cada central de proximidad serán desplegados mediante
+Kubernetes. Por limitaciones del entorno, para la práctica se utiliza una única
+instancia de _microk8s_ para el despliegue de los servicios las dos centrales de
+proximidad. 
 
 La figura muestra que las centrales de proximidad disponen de una conexión a la
 red MplsWan, emulada mediante Open vSwitch. En la red MplsWan está conectado el
@@ -337,7 +331,7 @@ las KNFs usando el comando:
 
 ```shell
 cd ~/shared/sdedge-ns
-bin/sdw-knf-consoles open $NSID1
+bin/sdw-knf-consoles open 1
 ```
 
 A continuación, realice pruebas de conectividad básicas con ping y traceroute
@@ -428,7 +422,7 @@ el equipo _voip-gw_. Para ello, utilice:
 A continuación, acceda a los terminales de las KNFs usando el comando:
 
 ```shell
-bin/sdw-knf-consoles open $NSID1
+bin/sdw-knf-consoles open 1
 ```
 
 Y realice pruebas de conectividad básicas con ping y traceroute entre las tres
@@ -485,7 +479,7 @@ práctica.
 Acceda a los terminales de las VNFs usando el comando:
 
 ```shell
-bin/sdw-knf-consoles open $NSID2
+bin/sdw-knf-consoles open 2
 ```
 
 Y realice pruebas de conectividad básicas con ping y traceroute entre las tres
