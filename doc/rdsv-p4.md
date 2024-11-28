@@ -186,10 +186,10 @@ A continuación, ejecute:
 
 ```
 chmod +x bin/*
-bin/get-osmlab-k8s
+bin/get-sdwlab-k8s
 ```
 
-El comando `bin/get-osmlab-k8s`:
+El comando `bin/get-sdwlab-k8s`:
 - instala la ova que contiene la máquina virtual,
 - añade el directorio compartido en la máquina virtual, en `/home/upm/shared`.
 El objetivo es que esa carpeta compartida sea accesible tanto en el PC anfitrión
