@@ -2,7 +2,7 @@
 
 OVAFILE='RDSV-K8S-2024-v1.ova'
 LABDIR=/lab/rdsv/repo
-VMNAME='RDSV-K8S'
+VMNAME='RDSV-K8S-2024-v1'
 STARTCMD="vboxmanage startvm $VMNAME"
 IMPORTOPTS="--vsys 0 --memory 4096 --cpus 2"
 
