@@ -588,7 +588,7 @@ otros sistemas del escenario y a Internet utilizando traceroute.
 Para liberar los despliegues realizados en el clúster, utilice:
 
 ```shell
-uninstall.sh
+./uninstall.sh
 ```
 
 ## 8. Conclusiones
@@ -661,3 +661,6 @@ plataformas y repositorios")
 
 ---
 
+![Wireshark decode as](img/wireshark-decode-as.png "wireshark")
+
+*Figura 8. Selección de decodificación de paquetes en Wireshark*
