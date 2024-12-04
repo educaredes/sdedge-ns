@@ -437,7 +437,7 @@ configuraciones necesarias del servicio, accediendo a los contenedores mediante
 _kubectl_, como se explicó anteriormente.
 
 :point_right: Acceda al contenido de esos tres ficheros. Compare
-*k8s_sdedge_start.sh* con *k8s_sdedge_start.sh*:
+*k8s_corpcpe_start.sh* con *k8s_sdedge_start.sh*:
 
 ```shell
 diff k8s_corpcpe_start.sh k8s_sdedge_start.sh
