@@ -177,8 +177,8 @@ para que en lugar del nombre local del chart `$vnf$chart_suffix` se utilice su
 url, basada en su dirección IP localhost. 
 
 Finalmente, arranque la instancia del servicio `sdedge1` y mediante
-kubectl acceda a los contenedores para comprobar que incluyen el software
-y los ficheros instalados.
+kubectl o mediante el script `bin/sdw-knf-consoles` acceda a los contenedores
+para comprobar que incluyen el software y los ficheros instalados.
 
 # 3. Modificación imágenes docker
 
