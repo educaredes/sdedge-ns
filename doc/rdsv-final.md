@@ -39,8 +39,8 @@ Además, copie los scripts:
 - `start_corpcpe.sh`
 - `start_sdedge.sh`
 - `start_sdwan.sh`
-- `osm_sdedge_start.sh`
-- `osm_sdwan_start.sh`
+- `k8s_sdedge_start.sh`
+- `k8s_sdwan_start.sh`
 - `sdedge1.sh` y `sdedge2.sh`
 - `sdwan1.sh` y `sdwan2.sh`
 
@@ -88,13 +88,14 @@ cd ..
 
 ## 2.3 Repositorio helm
 
-Instale la herramienta `helm`. Para ello, desde un terminal de la máquina virtual ya arrancada, ejecute:
+<!--Instale la herramienta `helm`. Para ello, desde un terminal de la máquina virtual ya arrancada, ejecute:
 
 ```shell
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 ```
+-->
 
 Fuera de la carpeta `shared`, cree una carpeta para almacenar los ficheros del repositorio helm, que va a publicar utilizando un contenedor de docker.
 
@@ -122,8 +123,8 @@ helm package ~/shared/rdsv-final/helm/cpechart
 helm package ~/shared/rdsv-final/helm/wanchart
 
 # crear el índice del repositorio utilizando para la creación de las URLs
-# la dirección IP de su máquina virtual en el túnel (prefijo 10.11.13.0/24)
-helm repo index --url http://10.11.13.<X>/ .
+# la dirección IP localhost de su máquina virtual
+helm repo index --url http://127.0.0.1/ .
 
 # comprobar que se ha creado/actualizado el fichero index.yaml
 cat index.yaml
@@ -145,9 +146,10 @@ docker run --restart always --name helm-repo -p 80:80 -v ~/helm-files:/usr/share
 Compruebe que puede acceder al repositorio:
 
 ```shell
-curl http://10.11.13.<X>/index.yaml
+curl http://127.0.0.1/index.yaml
 ```
 
+<!--
 Registre el nuevo repositorio en osm, borrando antes el repositorio previamente registrado:
 
 ```shell
@@ -162,7 +164,21 @@ osm repo-add --type helm-chart --description "rdsvY repo" sdedge-ns-repo http://
 Finalmente, arranque desde OSM una instancia del servicio `sdedge` y mediante
 kubectl acceda a los contenedores para comprobar que incluyen el software
 y los ficheros instalados.
+-->
 
+A continuación, modifique el script `k8s_sdedge_start.sh` para que utilice los 
+helm charts a través del servidor web. Para ello, deberá modificar la línea:
+
+```
+  helm -n $SDWNS install $vnf$NETNUM $vnf$chart_suffix
+```
+
+para que en lugar del nombre local del chart `$vnf$chart_suffix` se utilice su
+url, basada en su dirección IP localhost. 
+
+Finalmente, arranque la instancia del servicio `sdedge1` y mediante
+kubectl acceda a los contenedores para comprobar que incluyen el software
+y los ficheros instalados.
 
 # 3. Modificación imágenes docker
 
