@@ -134,19 +134,19 @@ Arranque mediante docker un servidor web `nginx`, montando `helm-files`
 como carpeta para el contenido:
 
 ```shell
-docker run --name helm-repo -p 80:80 -v ~/helm-files:/usr/share/nginx/html:ro -d nginx
+docker run --name helm-repo -p 8080:80 -v ~/helm-files:/usr/share/nginx/html:ro -d nginx
 ```
 
 Es conveniente añadir la opción --restart always para que el docker se arranque automáticamente:
 
 ```shell
-docker run --restart always --name helm-repo -p 80:80 -v ~/helm-files:/usr/share/nginx/html:ro -d nginx
+docker run --restart always --name helm-repo -p 8080:80 -v ~/helm-files:/usr/share/nginx/html:ro -d nginx
 ```
 
 Compruebe que puede acceder al repositorio:
 
 ```shell
-curl http://127.0.0.1/index.yaml
+curl http://127.0.0.1:8080/index.yaml
 ```
 
 <!--
@@ -174,7 +174,7 @@ helm charts a través del servidor web. Para ello, deberá modificar la línea:
 ```
 
 para que en lugar del nombre local del chart `$vnf$chart_suffix` se utilice su
-url, basada en su dirección IP localhost. 
+url, `http://127.0.0.1:8080/$vnf$chart_suffix`. 
 
 Finalmente, arranque la instancia del servicio `sdedge1` y mediante
 kubectl o mediante el script `bin/sdw-knf-consoles` acceda a los contenedores
