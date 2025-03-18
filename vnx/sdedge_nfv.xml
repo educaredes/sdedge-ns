@@ -263,4 +263,36 @@ SPAIN
     <route type="ipv4" gw="10.100.3.2">10.100.2.0/24</route>
     <route type="ipv4" gw="10.100.3.1">0.0.0.0/0</route>
   </vm>
+  <vm name="r0" type="lxc" exec_mode="lxc-attach" arch="x86_64">
+    <filesystem type="cow">/usr/share/vnx/filesystems/rootfs_lxc_ubuntu64</filesystem>
+    <if id="1" net="lan0">
+      <ipv4>10.20.0.100/24</ipv4>
+    </if>
+    <exec seq="on_boot" type="verbatim">
+      # Change interfaces MTU
+      ifconfig eth1 mtu 1400
+      sed -i -e '/iface eth1 inet static/a \   mtu 1400' /etc/network/interfaces
+    </exec>
+    <forwarding type="ip" />
+  </vm> 
+  <vm name="bcg0" type="lxc" exec_mode="lxc-attach" arch="x86_64">
+    <filesystem type="cow">/usr/share/vnx/filesystems/rootfs_lxc_ubuntu64</filesystem>
+    <if id="1" net="lan0">
+    </if>
+    <if id="2" net="Internet">
+      <ipv4>10.100.3.100/24</ipv4>
+    </if>
+    <route type="ipv4" gw="10.100.3.1">10.100.1.0/24</route>
+    <exec seq="on_boot" type="verbatim">
+      service openvswitch-switch start
+      sleep 5
+      ifconfig eth1 up
+      ifconfig eth2 up
+      ovs-vsctl add-br brwan
+      ip link add vxlan1 type vxlan id 12 remote 10.100.1.1 dstport 8742 dev eth2
+      ovs-vsctl add-port brwan eth1
+      ovs-vsctl add-port brwan vxlan1
+      ifconfig vxlan1 up
+    </exec>
+  </vm>
 </vnx>
