@@ -20,5 +20,6 @@ sudo vnx -f vnx/sdedge_nfv.xml -t
 and then enter r1 console and ping r0
 
 ```bash
-r1> ping 10.20.0.100
+# from r1
+ping 10.20.0.100
 ```
