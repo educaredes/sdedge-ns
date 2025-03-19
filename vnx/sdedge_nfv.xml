@@ -47,6 +47,7 @@ SPAIN
   <net name="AccessNet2" mode="openvswitch" managed="no"/>
 
   <net name="Internet" mode="openvswitch"/>
+  <net name="lan0" mode="veth" type="p2p"/>
 
   <net name="ExtNet1" mode="openvswitch" managed="no"/>
   <net name="ExtNet2" mode="openvswitch" managed="no"/>
