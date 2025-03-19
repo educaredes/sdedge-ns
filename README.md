@@ -18,5 +18,7 @@ sudo vnx -f vnx/sdedge_nfv.xml -t
 ./sdwan1.sh
 
 and then enter r1 console and ping r0
-r1> ping 10.20.0.100
 
+```bash
+r1> ping 10.20.0.100
+```
