@@ -1,1 +1,0 @@
-Clean the ova file, it has an unclosed VNX scenario
