@@ -31,7 +31,7 @@ ping 10.20.0.100
 Then, the tunnel between KNF-cpe-2 and bcg0 can be launched:
 
 ```bash
-./sdedge2.sh
+./sdedge2.sh # creating this file is an exercise
 ./sdwan2.sh
 ```
 
