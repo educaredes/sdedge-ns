@@ -284,16 +284,20 @@ SPAIN
       <ipv4>10.100.3.100/24</ipv4>
     </if>
     <route type="ipv4" gw="10.100.3.1">10.100.1.0/24</route>
+    <route type="ipv4" gw="10.100.3.2">10.100.2.0/24</route>
     <exec seq="on_boot" type="verbatim">
       service openvswitch-switch start
       sleep 5
       ifconfig eth1 up
       ifconfig eth2 up
       ovs-vsctl add-br brwan
-      ip link add vxlan1 type vxlan id 12 remote 10.100.1.1 dstport 8742 dev eth2
+      ip link add vxlan1 type vxlan id 10 remote 10.100.1.1 dstport 4789 dev eth2
+      ip link add vxlan2 type vxlan id 20 remote 10.100.2.1 dstport 4789 dev eth2
       ovs-vsctl add-port brwan eth1
       ovs-vsctl add-port brwan vxlan1
+      ovs-vsctl add-port brwan vxlan2
       ifconfig vxlan1 up
+      ifconfig vxlan2 up
     </exec>
   </vm>
 </vnx>

@@ -47,6 +47,9 @@ echo "IPWAN = $IPWAN"
 PORTWAN=`$KUBECTL get -n $SDWNS -o jsonpath="{.spec.ports[0].nodePort}" service $WAN_SERV`
 echo "PORTWAN = $PORTWAN"
 
+VXLANID0="${NETNUM}"
+VXLANID0+="0"
+
 ## 2. En VNF:cpe agregar un bridge y sus vxlan
 echo "## 2. En VNF:cpe agregar un bridge y configurar IPs y rutas"
 $CPE_EXEC ip route add $IPWAN/32 via $K8SGW
@@ -54,9 +57,9 @@ $CPE_EXEC ovs-vsctl add-br brwan
 $CPE_EXEC ip link add cpewan type vxlan id 5 remote $IPWAN dstport 8741 dev eth0
 $CPE_EXEC ovs-vsctl add-port brwan cpewan
 $CPE_EXEC ifconfig cpewan up
-$CPE_EXEC ip link add sr1sr2 type vxlan id 12 remote $REMOTESITE dstport 8742 dev net$NETNUM
-$CPE_EXEC ovs-vsctl add-port brwan sr1sr2
-$CPE_EXEC ifconfig sr1sr2 up
+$CPE_EXEC ip link add central type vxlan id $VXLANID0 remote $REMOTESITE dstport 4789 dev net$NETNUM
+$CPE_EXEC ovs-vsctl add-port brwan central
+$CPE_EXEC ifconfig central up
 
 ## 3. En VNF:wan arrancar controlador SDN"
 echo "## 3. En VNF:wan arrancar controlador SDN"
